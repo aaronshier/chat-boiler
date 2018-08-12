@@ -1,8 +1,8 @@
-import { server } from '../../config'
+import { server, database } from '../../config'
 
 module.exports = {
 	database: {
-		url: 'mongodb://localhost/hermn_ssr_mui'
+		url: `mongodb://localhost/${database}`
 	},
 	googleAuth: {
 		clientID: '443541868618-98u41tbu7r8h2j25d8m87em6au3af9tp.apps.googleusercontent.com',

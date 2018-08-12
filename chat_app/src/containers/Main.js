@@ -6,7 +6,7 @@ import FBShareDialog from '../components/FBSDK/FBShareDialog'
 
 class Main extends Component<{}> {
     async componentDidMount(){
-        const autoLog = await FBAutoLogin()
+        // const autoLog = await FBAutoLogin()
         // alert(autoLog.toString())
     }
     render() {

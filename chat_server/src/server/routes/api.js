@@ -36,6 +36,20 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook', {
   failureRedirect: `${server}`,
 }))
 
+router.post('/auth/facebook/token',
+  passport.authenticate('facebook-token'),
+  function (req, res) {
+    console.log('made it in!')
+    console.log('user -> ', req.user? 200 : 401)
+    console.log('id -> ', req.user.facebook.id)
+    res.send(req.user? 200 : 401);
+  }
+);
+
+router.post('/auth/test', (req, res) => {
+  console.log({req_body: req.body})
+})
+
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }) )
 
 router.get('/auth/google/callback', passport.authenticate('google', {
