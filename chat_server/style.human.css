@@ -1,0 +1,43 @@
+html {
+  background: #fafafa;
+  color: #000;
+  font-family: Roboto;
+}
+
+body {
+  margin: 0;
+}
+
+@media screen and (min-width: 560px) {
+  .navbar {
+    background: #0af;
+    margin: 0;
+    color: #fff;
+    height: 200px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    position: relative;
+  }
+  .navbar a {
+    padding: 20px;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .pageTitle {
+    font-size: 28px;
+  }
+}
+.welcome {
+  text-align: center;
+}
