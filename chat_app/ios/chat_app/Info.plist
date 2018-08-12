@@ -28,6 +28,26 @@
 				<string>fb1347027622099102</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.googleusercontent.apps.591037199897-lubdnf7i4gf1sk4l89tq34qagb1597od</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.591037199897-lubdnf7i4gf1sk4l89tq34qagb1597od</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>org.reactjs.native.ohshutit.chat-app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>org.reactjs.native.ohshutit.chat-app</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>

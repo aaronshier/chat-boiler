@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import FBAutoLogin from '../components/FBSDK/FBAutoLogin'
 import FBLoginButton from '../components/FBSDK/FBLoginButton'
 import FBShareDialog from '../components/FBSDK/FBShareDialog'
-
+import GoogleLoginButton from '../components/google/GoogleLoginButton'
 class Main extends Component<{}> {
     async componentDidMount(){
         const autoLog = await FBAutoLogin()
@@ -17,6 +17,7 @@ class Main extends Component<{}> {
                 </Text>
                 <FBLoginButton />
                 <FBShareDialog />
+                <GoogleLoginButton />
             </View>
         )
     }
