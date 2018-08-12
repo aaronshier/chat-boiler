@@ -1,0 +1,5 @@
+// export const SET_SEARCHED_RECIPES = 'SET_SEARCHED_RECIPES'
+// export const ADD_RECIPE = 'ADD_RECIPE'
+export const ADD_TEST = 'ADD_TEST'
+export const USER_DATA = 'USER_DATA'
+export const SITE_LOADED = 'SITE_LOADED'
