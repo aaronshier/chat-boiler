@@ -8,6 +8,13 @@ const {
 
 
 class FBLoginButton extends Component<{}> {
+    
+    constructor(props){
+        super(props)
+    
+        this.state = {}
+    }
+
     render() {
         return (
             <View>
