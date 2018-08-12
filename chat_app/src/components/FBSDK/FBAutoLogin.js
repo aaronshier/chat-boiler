@@ -1,20 +1,21 @@
 const FBSDK = require('react-native-fbsdk');
 const {
   LoginManager,
+  AccessToken
 } = FBSDK;
 
-export default () => {       
-    // Attempt a login using the Facebook login dialog asking for default permissions.
-    LoginManager.logInWithReadPermissions(['public_profile']).then(
-    function(result) {
-        if (result.isCancelled) {
-        alert('Login cancelled');
-        } else {
-        alert('Login success with permissions: '
-            +result.grantedPermissions.toString());
+export default async () => {   
+    AccessToken.getCurrentAccessToken().then(async api_key => {
+        // Attempt a login using the Facebook login dialog asking for default permissions.
+        if(!api_key){
+            const res = await LoginManager.logInWithReadPermissions(['public_profile']).then(
+                (result) => {
+                    return result
+                },
+                (error) => {
+                    alert('Login fail with error: ' + error);
+                })
+            return res
         }
-    },
-    function(error) {
-        alert('Login fail with error: ' + error);
     })
 }

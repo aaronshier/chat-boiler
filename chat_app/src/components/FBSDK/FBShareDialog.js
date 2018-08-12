@@ -50,7 +50,7 @@ class FBShareDialog extends Component {
         <TouchableOpacity
           style={styles.share}
           onPress={this.shareLinkWithShareDialog.bind(this)}>
-          <Text style={styles.shareText}>Share link with ShareDialog</Text>
+          <Text style={styles.shareText}>Share ohshutit.com</Text>
         </TouchableOpacity>
       </View>
     );

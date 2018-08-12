@@ -5,13 +5,14 @@ import FBLoginButton from '../components/FBSDK/FBLoginButton'
 import FBShareDialog from '../components/FBSDK/FBShareDialog'
 
 class Main extends Component<{}> {
-    componentDidMount(){
-        FBAutoLogin()
+    async componentDidMount(){
+        const autoLog = await FBAutoLogin()
+        // alert(autoLog.toString())
     }
     render() {
         return (
             <View style={styles.container}>
-                <Text>
+                <Text style={{margin: 20, fontSize: 30}}>
                     This is living...
                 </Text>
                 <FBLoginButton />
