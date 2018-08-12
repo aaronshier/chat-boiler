@@ -4,6 +4,7 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var User = require('../models/user');
 var configAuth = require('./index');
+var FacebookTokenStrategy = require('passport-facebook-token');
 
 module.exports = function(passport) {
 
@@ -89,6 +90,32 @@ module.exports = function(passport) {
       });
     });
   }));
+
+  passport.use(new FacebookTokenStrategy({
+      clientID: configAuth.facebookAuth.clientID,
+      clientSecret: configAuth.facebookAuth.clientSecret
+    }, function(accessToken, refreshToken, profile, done) {
+      User.findOne({ 'facebook.id': profile.id }, function(err, user) {
+        if (err)
+          return done(err);
+        if (user) {
+          return done(null, user);
+        } else {
+          var newUser = new User();
+          newUser.facebook.id = profile.id;
+          newUser.facebook.token = token;
+          newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+          newUser.facebook.email = (profile.emails[0].value || '').toLowerCase();
+
+          newUser.save(function(err) {
+            if (err)
+              throw err;
+            return done(null, newUser);
+          });
+        }
+      })
+    }
+  ));
 
   passport.use(new GoogleStrategy({
     clientID: configAuth.googleAuth.clientID,
