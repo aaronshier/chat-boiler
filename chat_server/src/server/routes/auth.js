@@ -15,8 +15,8 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook', {
 
 router.post('/auth/facebook/token',
   passport.authenticate('facebook-token'),
-  function (req, res) {
-
+  (req, res) => {
+    console.log({user: req.user})
     res.send( req.user ? { status: 200, user: req.user } : { status: 401 } );
   }
 );

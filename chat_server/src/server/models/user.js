@@ -9,10 +9,12 @@ var userSchema = mongoose.Schema({
   },
   facebook: {
     id: String,
-    token: String,
+    access_token: String,
+    refresh_token: String,
     email: String,
     name: String,
     username: String,
+    avatar: String,
   },
   google: {
     id: String,

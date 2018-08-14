@@ -27,7 +27,11 @@ class FBLoginButton extends Component<{}> {
                             } else if (result.isCancelled) {
                                 // alert("login is cancelled.");
                             } else {
-                                const token = await loginToServerWithFacebook()
+                                const result = await loginToServerWithFacebook()
+                                if(result.login){
+                                    this.props.handleLoginResult(result)
+
+                                }
                             }
                         }
                     }

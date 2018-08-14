@@ -67,7 +67,7 @@ module.exports = function(passport) {
     callbackURL: configAuth.facebookAuth.callbackURL,
     profileFields: ['id', 'email', 'first_name', 'last_name'],
   },
-  function(token, refreshToken, profile, done) {
+  function(accessToken, refreshToken, profile, done) {
     process.nextTick(function() {
       User.findOne({ 'facebook.id': profile.id }, function(err, user) {
         if (err)
@@ -77,9 +77,11 @@ module.exports = function(passport) {
         } else {
           var newUser = new User();
           newUser.facebook.id = profile.id;
-          newUser.facebook.token = token;
+          newUser.facebook.access_token = accessToken;
+          newUser.facebook.refresh_token = refreshToken;
           newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
           newUser.facebook.email = (profile.emails[0].value || '').toLowerCase();
+          newUser.facebook.avatar = `http://graph.facebook.com/${profile.id}/picture?height=600&width=600`
 
           newUser.save(function(err) {
             if (err)
@@ -103,9 +105,11 @@ module.exports = function(passport) {
         } else {
           var newUser = new User();
           newUser.facebook.id = profile.id;
-          newUser.facebook.token = token;
+          newUser.facebook.access_token = accessToken;
+          newUser.facebook.refresh_token = refreshToken;
           newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
           newUser.facebook.email = (profile.emails[0].value || '').toLowerCase();
+          newUser.facebook.avatar = `http://graph.facebook.com/${profile.id}/picture?height=600&width=600`
 
           newUser.save(function(err) {
             if (err)
