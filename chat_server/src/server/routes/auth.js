@@ -1,8 +1,12 @@
 
 import express from 'express'
 import passport from 'passport'
+require('../config/passport')(passport)
+passport.authenticate('jwt', { session: false})
+var jwt = require('jsonwebtoken')
+const config = require('../config')
 
-import { server } from '../../config'
+import { server, status_codes } from '../../config'
 
 let router = express.Router()
 
@@ -13,23 +17,37 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook', {
   failureRedirect: `${server}`,
 }))
 
-router.post('/auth/facebook/token',
+router.post('/facebook/token',
   passport.authenticate('facebook-token'),
   (req, res) => {
-    console.log({user: req.user})
-    res.send( req.user ? { status: 200, user: req.user } : { status: 401 } );
+    let user
+    let token
+    if(req.user){
+        user = req.user
+        // Remove sensitive data
+        delete user.password
+        delete user.facebook.refresh_token
+        // Get json web token
+        token = jwt.sign(user.toJSON(), config.secret)
+    }
+
+    // return to user with STU
+    res.send( user ? { status: status_codes.OK, user, token } : { status: status_codes.RESOURCE_DOESNT_EXISTS } );
+
   }
-);
+)
 
-router.post('/auth/test', (req, res) => {
-  console.log({req_body: req.body})
-})
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }) )
 
-router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }) )
-
-router.get('/auth/google/callback', passport.authenticate('google', {
+router.get('/google/callback', passport.authenticate('google', {
   successRedirect: '/',
   failureRedirect: '/'
 }))
+
+
+router.get('/logout', (req, res) => {
+  req.logout()
+  res.redirect(`/`)
+})
 
 module.exports = router

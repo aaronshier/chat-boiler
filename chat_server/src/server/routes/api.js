@@ -5,17 +5,12 @@ import passport from 'passport'
 
 let router = express.Router()
 
-router.get('/logout', (req, res) => {
-  req.logout()
-  res.redirect(`/`)
-})
-
-router.post('/api/signup', passport.authenticate('local-signup', 
+router.post('/signup', passport.authenticate('local-signup', 
   {   successRedirect: '/',
     failureRedirect: '/signup?error=true&message=That+email+is+already+taken.++Try again' 
 }))
 
-router.post('/api/login', passport.authenticate('local-login', {
+router.post('/login', passport.authenticate('local-login', {
   successRedirect: '/',
   failureRedirect: '/login?error=true&message=Your+email/password+was+incorrect!'
 }))

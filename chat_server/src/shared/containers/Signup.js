@@ -118,13 +118,13 @@ class SignUp extends Component<{}> {
 								<FaEnvelope style={{position: 'absolute', left: 8, top: 7, fontSize: '25px'}}/>
 								SIGN UP WITH EMAIL
 							</Button>
-							<p style={{textAlign: 'center', margin: '0 0 10px'}}>OR</p>
-								<a href={`${server}/auth/google`} style={{textDecoration: 'none'}}>  
+							<p style={{textAlign: 'center', margin: '0 0'}}>OR</p>
+								{/* <a href={`${server}/auth/google`} style={{textDecoration: 'none'}}>  
 								<Button style={{width: '100%', height: '40px'}} variant="raised" color="secondary">
 									<FaGoogle style={{position: 'absolute', left: 8, fontSize: '25px'}}/> 
 									<span style={{marginRight: '5px', fontSize: '18px'}}>Sign up With GOOGLE</span>
 								</Button>
-								</a>
+								</a> */}
 								<a href={`${server}/auth/facebook`} style={{textDecoration: 'none'}}>  
 									<Button style={styles.buttonFacebook} variant="raised" color="secondary">
 										<FaFacebook style={styles.icon}/> 

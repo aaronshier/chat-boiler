@@ -35,9 +35,6 @@ export default class App extends Component {
     this.state = {
     }
   }
-  componentDidMount(){
-    loginToServerWithFacebook()
-  }
   render() {
     return (
       <Provider store={store}>

@@ -110,12 +110,12 @@ class Login extends Component<{}> {
 							<FaEnvelope style={styles.icon}/>
 							Login With Email
 							</Button>
-							<a href={`${server}/auth/google`} style={{textDecoration: 'none'}}>  
+							{/* <a href={`${server}/auth/google`} style={{textDecoration: 'none'}}>  
 								<Button style={styles.button} variant="raised" color="secondary">
 									<FaGoogle style={styles.icon}/> 
 									Login With Google
 								</Button>
-							</a>
+							</a> */}
 							<a href={`${server}/auth/facebook`} style={{textDecoration: 'none'}}>  
 								<Button style={styles.buttonFacebook} variant="raised" color="secondary">
 									<FaFacebook style={styles.icon}/> 

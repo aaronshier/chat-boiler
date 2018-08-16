@@ -15,6 +15,7 @@ import ssr from './routes/ssr.js'
 import tests from './routes/tests.js'
 import api from './routes/api.js'
 import auth from './routes/auth.js'
+import mobile from './routes/mobile.js'
 
 // Create App
 const app = express()
@@ -65,8 +66,9 @@ app.use(flash())
 
 // Routes
 app.use('/tests', tests)
-app.use('/', api)
-app.use('/', auth)
+app.use('/api', api)
+app.use('/api/mobile', mobile)
+app.use('/auth', auth)
 
 // This route goes last! Its our SSR Route
 // If placed before this point it will override the API routes

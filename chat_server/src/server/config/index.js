@@ -13,5 +13,6 @@ module.exports = {
 		clientID: '1347027622099102',
 		clientSecret: 'b35d42a92dbd925b4edbe7d5b4648fcb',
 		callbackURL: `${server}/auth/facebook/callback`,
-	}
+	},
+	secret: "xclkjhasdljvhasdkjbaxkjcbaxkcjbadkjfhajbvlkaj"
 }

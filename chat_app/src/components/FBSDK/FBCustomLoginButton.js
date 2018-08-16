@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { ActionCreators } from '../../actions/index'
-
+import { loginToServerWithFacebook } from '../auth'
 const FBSDK = require('react-native-fbsdk');
 const {
   LoginManager,
@@ -19,19 +19,14 @@ class FBCustomLoginButton extends Component<{}> {
         AccessToken.getCurrentAccessToken().then(async api_key => {
             // Attempt a login using the Facebook login dialog asking for default permissions.
             if(!api_key){
-                const res = await LoginManager.logInWithReadPermissions(['public_profile']).then(
-                    (result) => {
-                        console.log('made it in the LoginManager callback', result)
-                        this.props.handleLoginResult(result)
-                    },
-                    (error) => {
-                        console.log('made it in the LoginManager Error callback', error)
-                        this.props.handleLoginResult(error)
-                    })
-                    return res
-                } else {
-                console.log('made it in the AccessToken callback', api_key, this.props)
-                this.props.handleLoginResult(api_key)   
+                const res = await LoginManager.logInWithReadPermissions(['public_profile'])
+                .then(AccessToken.getCurrentAccessToken)
+                .then(loginToServerWithFacebook)
+                .catch( (error) => { console.log('made it in the LoginManager Error callback', error) })
+                return this.props.handleLoginResult(res)
+            } else {
+                const res = await loginToServerWithFacebook(api_key)
+                this.props.handleLoginResult(res)   
             }
         })
     }
@@ -64,7 +59,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 10,
         paddingHorizontal: 15,
-        borderRadius: 2,
+        borderRadius: 3,
         width: 260,
         justifyContent: 'center'
     },

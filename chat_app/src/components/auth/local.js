@@ -1,13 +1,64 @@
 import { AsyncStorage } from "react-native"
+import { prefix } from '../../config'
+
+import { server, status_codes } from '../../config'
 
 export const checkForLocalToken = async () => {
     try {
-        const value = await AsyncStorage.getItem('ca_local_signin');
+        console.log('fetching data!!')
+        const value = await AsyncStorage.getItem(`@${prefix}:jwt`).catch(e => console.log('there was an error in checkForLocalToken', e))
+        console.log('data!!', value)
         if (value !== null) {
-            // We have data!!
-            console.log(value)
+            console.log(' We have data!!')
+            return value
         }
     } catch (error) {
-        // Error retrieving data
+        return error
     }
+}
+
+export const eraseLocalToken = async () => {
+    try {
+        const value = await AsyncStorage.removeItem(`@${prefix}:jwt`, '').catch(e => console.log('there was an error in eraseLocalToken', e))
+        console.log('erasing data!! data = ', value)
+        if (value === null) {
+            return true
+        }
+    } catch (error) {
+        return false
+    }
+}
+
+export const loginWithLocalToken = async (info) => {
+    let user_token = info.token
+    let user
+
+    console.log({user_token})
+
+    if(user_token){
+        login = await fetch(`${server}/api/mobile/auto-login`, {
+            include: 'credentials',
+            method: 'POST',
+            headers: {
+                'user-agent': 'Mozilla/4.0 MDN Example',
+                'content-type': 'application/json',
+                'Authorization': `JWT ${user_token}`
+            },
+        }).then(response => response.json())
+        .then(async res => {   
+            if(res.status === status_codes.OK){
+                const value = await AsyncStorage.setItem(`@${prefix}:jwt`, info.token).catch(e => console.log('there was an error in loginWithLocalToken/AsyncStorage.setItem()', e))
+                user = res.user
+                user.login = true
+                return true
+            } else {
+                login = false
+                return false
+            }
+      }).catch(e => console.log('there was an error in loginWithLocalToken', e))
+    }
+    
+    return user
+
+    return {statususer}
 }
