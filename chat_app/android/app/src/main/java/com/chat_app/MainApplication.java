@@ -8,14 +8,8 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.appevents.AppEventsLogger;
 
 import com.facebook.react.ReactApplication;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-=======
->>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 import com.oblador.vectoricons.VectorIconsPackage;
-=======
->>>>>>> parent of 7432380... login auth flow
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -42,14 +36,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-<<<<<<< HEAD
-<<<<<<< HEAD
             new SplashScreenReactPackage(),
-=======
->>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
             new VectorIconsPackage(),
-=======
->>>>>>> parent of 7432380... login auth flow
           new FBSDKPackage(mCallbackManager)
       );
     }

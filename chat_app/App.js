@@ -4,18 +4,16 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
-import { View, StyleSheet } from 'react-native'
+import { View, Text, StatusBar, SafeAreaView, StyleSheet } from 'react-native'
 
-import Main from './src/containers/Main'
+import { loginToServerWithFacebook } from './src/components/auth/facebook'
+
+import MainApp from './src'
+import Login from './src/containers/Login'
+
 import reducers from './src/reducers'
 
-import createHistory from 'history/createMemoryHistory'
-
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ })
-
-// import { NativeRouter } from 'react-router-native'
-
-const history = createHistory();
 
 function configureStore(initialState) {
   const enhancer = compose(
@@ -30,44 +28,18 @@ function configureStore(initialState) {
 const store = configureStore({})
 
 export default class App extends Component {
-<<<<<<< HEAD
 
   constructor(props){
     super(props)
   
     this.state = {
     }
-=======
-  componentDidMount(){
-    console.log('this is our main props wrapping the app', this.props)
->>>>>>> parent of 7432380... login auth flow
-  }
-  componentDidMount(){
-    loginToServerWithFacebook()
   }
   render() {
     return (
       <Provider store={store}>
-          {/* <NativeRouter> */}
-            <View style={styles.container}>
-              <Main />
-            </View>
-          {/* </NativeRouter> */}
+        <MainApp />
       </Provider>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-})
-
-
-
-
-

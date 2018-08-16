@@ -12,7 +12,6 @@ const Login = createStackNavigator({
     screen: SignupPage,
   },
 }, {
-  mode: 'modal',
   headerMode: 'none',
 });
 

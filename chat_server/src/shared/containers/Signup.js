@@ -8,7 +8,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import { FaGoogle, FaEnvelope } from 'react-icons/fa'
+import { FaGoogle, FaEnvelope, FaFacebook } from 'react-icons/fa'
 import { server } from '../../config'
 import Snackbar from '@material-ui/core/Snackbar';
 import { getTitle }from '../routes'
@@ -118,25 +118,18 @@ class SignUp extends Component<{}> {
 								<FaEnvelope style={{position: 'absolute', left: 8, top: 7, fontSize: '25px'}}/>
 								SIGN UP WITH EMAIL
 							</Button>
-							<p style={{textAlign: 'center', margin: '0 0 10px'}}>OR</p>
-								<a href={`${server}/auth/google`} style={{textDecoration: 'none'}}>  
+							<p style={{textAlign: 'center', margin: '0 0'}}>OR</p>
+								{/* <a href={`${server}/auth/google`} style={{textDecoration: 'none'}}>  
 								<Button style={{width: '100%', height: '40px'}} variant="raised" color="secondary">
 									<FaGoogle style={{position: 'absolute', left: 8, fontSize: '25px'}}/> 
 									<span style={{marginRight: '5px', fontSize: '18px'}}>Sign up With GOOGLE</span>
 								</Button>
-<<<<<<< HEAD
-<<<<<<< HEAD
 								</a> */}
-=======
-								</a>
->>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 								<a href={`${server}/auth/facebook`} style={{textDecoration: 'none'}}>  
 									<Button style={styles.buttonFacebook} variant="raised" color="secondary">
 										<FaFacebook style={styles.icon}/> 
 										Sign Up With Facebook
 									</Button>
-=======
->>>>>>> parent of 7432380... login auth flow
 								</a>
 						</div>
 						<div style={{marginTop: '40px', textAlign: 'center'}}>
