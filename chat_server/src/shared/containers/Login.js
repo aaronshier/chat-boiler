@@ -110,13 +110,17 @@ class Login extends Component<{}> {
 							<FaEnvelope style={styles.icon}/>
 							Login With Email
 							</Button>
-							{/* <a href={`${server}/auth/google`} style={{textDecoration: 'none'}}>  
+							<a href={`${server}/auth/google`} style={{textDecoration: 'none'}}>  
 								<Button style={styles.button} variant="raised" color="secondary">
 									<FaGoogle style={styles.icon}/> 
 									Login With Google
 								</Button>
 <<<<<<< HEAD
+<<<<<<< HEAD
 							</a> */}
+=======
+							</a>
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 							<a href={`${server}/auth/facebook`} style={{textDecoration: 'none'}}>  
 								<Button style={styles.buttonFacebook} variant="raised" color="secondary">
 									<FaFacebook style={styles.icon}/> 

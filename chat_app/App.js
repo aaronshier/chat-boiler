@@ -42,6 +42,9 @@ export default class App extends Component {
     console.log('this is our main props wrapping the app', this.props)
 >>>>>>> parent of 7432380... login auth flow
   }
+  componentDidMount(){
+    loginToServerWithFacebook()
+  }
   render() {
     return (
       <Provider store={store}>

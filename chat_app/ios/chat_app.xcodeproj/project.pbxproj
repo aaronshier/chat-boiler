@@ -15,7 +15,6 @@
 		00E356F31AD99517003FC87E /* chat_appTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* chat_appTests.m */; };
 <<<<<<< HEAD
 		0153BB01BBE04DAD9043F2DB /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62335DBC9C934FAA856F23D6 /* FontAwesome5_Brands.ttf */; };
-		025A46458B244257A4F71D2A /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00B4EC8E90F4CE59F9BADCA /* libSplashScreen.a */; };
 		0F9E31E04A5048799EEE2D4A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7A2E43007D0403696341B56 /* Zocial.ttf */; };
 =======
 >>>>>>> parent of 7432380... login auth flow
@@ -102,6 +101,7 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
+<<<<<<< HEAD
 		103471E22126091F00A45155 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FBBED2F3C045408DAA3334BE /* SplashScreen.xcodeproj */;
@@ -111,6 +111,8 @@
 		};
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 		108A77CD212020EE002DC63C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CC7A644485B545629A453D23 /* RCTFBSDK.xcodeproj */;
@@ -385,12 +387,17 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		CC7A644485B545629A453D23 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
 <<<<<<< HEAD
+<<<<<<< HEAD
 		D00B4EC8E90F4CE59F9BADCA /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
 		D2652378739746F2A3EEC18B /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		E7A2E43007D0403696341B56 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		FBBED2F3C045408DAA3334BE /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+		D2652378739746F2A3EEC18B /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		E7A2E43007D0403696341B56 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -426,9 +433,12 @@
 				EAB56DF46DCA4ED585DD0687 /* libRCTFBSDK.a in Frameworks */,
 <<<<<<< HEAD
 				E48E3B0F43414AA8A757B46E /* libRNVectorIcons.a in Frameworks */,
+<<<<<<< HEAD
 				025A46458B244257A4F71D2A /* libSplashScreen.a in Frameworks */,
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,6 +536,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		103471DF2126091E00A45155 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -536,15 +547,20 @@
 		};
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 		108A77C4212020E9002DC63C /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
 				56279694E04B44ED98487372 /* libRCTFBSDK.a */,
 <<<<<<< HEAD
 				535B984C1A124D82ABC627AA /* libRNVectorIcons.a */,
+<<<<<<< HEAD
 				D00B4EC8E90F4CE59F9BADCA /* libSplashScreen.a */,
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -662,9 +678,12 @@
 				CC7A644485B545629A453D23 /* RCTFBSDK.xcodeproj */,
 <<<<<<< HEAD
 				9D97C6A32CAD469CAE8B3B35 /* RNVectorIcons.xcodeproj */,
+<<<<<<< HEAD
 				FBBED2F3C045408DAA3334BE /* SplashScreen.xcodeproj */,
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -884,12 +903,15 @@
 					ProductGroup = 1012C6AE212111C3007E28B3 /* Products */;
 					ProjectRef = 9D97C6A32CAD469CAE8B3B35 /* RNVectorIcons.xcodeproj */;
 				},
+<<<<<<< HEAD
 				{
 					ProductGroup = 103471DF2126091E00A45155 /* Products */;
 					ProjectRef = FBBED2F3C045408DAA3334BE /* SplashScreen.xcodeproj */;
 				},
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 			);
 			projectRoot = "";
 			targets = (
@@ -945,6 +967,7 @@
 			remoteRef = 1012C6B1212111C3007E28B3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+<<<<<<< HEAD
 		103471E32126091F00A45155 /* libSplashScreen.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -954,6 +977,8 @@
 		};
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 		108A77CE212020EE002DC63C /* libRCTFBSDK.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1328,9 +1353,12 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 <<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 				);
 				INFOPLIST_FILE = chat_appTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1340,9 +1368,12 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 <<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1363,9 +1394,12 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 <<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 				);
 				INFOPLIST_FILE = chat_appTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1375,9 +1409,12 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 <<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1405,9 +1442,12 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 <<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 				);
 				INFOPLIST_FILE = chat_app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1439,9 +1479,12 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 <<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 				);
 				INFOPLIST_FILE = chat_app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1473,9 +1516,12 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 <<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 				);
 				INFOPLIST_FILE = "chat_app-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1484,9 +1530,12 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 <<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1517,9 +1566,12 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 <<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 				);
 				INFOPLIST_FILE = "chat_app-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1528,9 +1580,12 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 <<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1560,9 +1615,12 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 <<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 				);
 				INFOPLIST_FILE = "chat_app-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1571,9 +1629,12 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 <<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1603,9 +1664,12 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 <<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 				);
 				INFOPLIST_FILE = "chat_app-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1614,9 +1678,12 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 <<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 =======
 >>>>>>> parent of 7432380... login auth flow
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",

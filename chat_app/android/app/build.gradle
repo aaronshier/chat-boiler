@@ -138,7 +138,10 @@ android {
 
 dependencies {
 <<<<<<< HEAD
+<<<<<<< HEAD
     compile project(':react-native-splash-screen')
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
     compile project(':react-native-vector-icons')
 =======
 >>>>>>> parent of 7432380... login auth flow

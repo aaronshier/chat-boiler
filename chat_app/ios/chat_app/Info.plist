@@ -56,8 +56,12 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
+<<<<<<< HEAD
 	<string></string>
 <<<<<<< HEAD
+=======
+	<string/>
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
@@ -83,8 +87,6 @@
 	<array>
 		<string>armv7</string>
 	</array>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleLightContent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

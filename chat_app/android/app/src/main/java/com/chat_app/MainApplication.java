@@ -9,7 +9,10 @@ import com.facebook.appevents.AppEventsLogger;
 
 import com.facebook.react.ReactApplication;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
 import com.oblador.vectoricons.VectorIconsPackage;
 =======
 >>>>>>> parent of 7432380... login auth flow
@@ -40,7 +43,10 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
 <<<<<<< HEAD
+<<<<<<< HEAD
             new SplashScreenReactPackage(),
+=======
+>>>>>>> parent of 0cca5eb... fb auth setup and splash screen integration
             new VectorIconsPackage(),
 =======
 >>>>>>> parent of 7432380... login auth flow

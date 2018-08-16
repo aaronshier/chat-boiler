@@ -40,7 +40,7 @@ if(production){
   }
 
   serverConfig = {
-    entry: ['babel-polyfill', './src/server/index.js'],
+    entry: './src/server/index.js',
     target: 'node',
     externals: [nodeExternals()],
     output: {
@@ -93,7 +93,7 @@ if(production){
   }
 
   serverConfig = {
-    entry: ['babel-polyfill', './src/server/index.js'],
+    entry: './src/server/index.js',
     target: 'node',
     externals: [nodeExternals()],
     output: {

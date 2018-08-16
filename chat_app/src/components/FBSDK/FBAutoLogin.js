@@ -13,7 +13,7 @@ export default async () => {
                     return result
                 },
                 (error) => {
-                    alert('getCurrentAccessToken() fail with error: ' + error);
+                    alert('Login fail with error: ' + error);
                 })
             return res
         }
