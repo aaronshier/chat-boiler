@@ -144,7 +144,7 @@ module.exports = function(passport) {
     callbackURL: configAuth.facebookAuth.callbackURL,
     profileFields: ['id', 'email', 'first_name', 'last_name'],
   },
-  function(accessToken, refreshToken, profile, done) {
+  function(token, refreshToken, profile, done) {
     process.nextTick(function() {
       User.findOne({ 'facebook.id': profile.id }, function(err, user) {
         if (err)
@@ -152,6 +152,7 @@ module.exports = function(passport) {
         if (user) {
           return done(null, user)
         } else {
+<<<<<<< HEAD
           var newUser = new User()
           newUser.facebook.id = profile.id
           newUser.facebook.access_token = accessToken
@@ -159,6 +160,13 @@ module.exports = function(passport) {
           newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName
           newUser.facebook.email = (profile.emails[0].value || '').toLowerCase()
           newUser.facebook.avatar = `http://graph.facebook.com/${profile.id}/picture?height=600&width=600`
+=======
+          var newUser = new User();
+          newUser.facebook.id = profile.id;
+          newUser.facebook.token = token;
+          newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+          newUser.facebook.email = (profile.emails[0].value || '').toLowerCase();
+>>>>>>> parent of 7432380... login auth flow
 
           newUser.save(function(err) {
             if (err)
@@ -180,6 +188,7 @@ module.exports = function(passport) {
         if (user) {
           return done(null, user)
         } else {
+<<<<<<< HEAD
           var newUser = new User()
           newUser.facebook.id = profile.id
           newUser.facebook.access_token = accessToken
@@ -187,6 +196,13 @@ module.exports = function(passport) {
           newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName
           newUser.facebook.email = (profile.emails[0].value || '').toLowerCase()
           newUser.facebook.avatar = `http://graph.facebook.com/${profile.id}/picture?height=600&width=600`
+=======
+          var newUser = new User();
+          newUser.facebook.id = profile.id;
+          newUser.facebook.token = token;
+          newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+          newUser.facebook.email = (profile.emails[0].value || '').toLowerCase();
+>>>>>>> parent of 7432380... login auth flow
 
           newUser.save(function(err) {
             if (err)

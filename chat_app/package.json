@@ -10,10 +10,14 @@
     "react": "16.4.1",
     "react-native": "0.56.0",
     "react-native-fbsdk": "^0.7.0",
+<<<<<<< HEAD
     "react-native-splash-screen": "^3.1.1",
     "react-native-vector-icons": "^5.0.0",
     "react-navigation": "^2.11.2",
+=======
+>>>>>>> parent of 7432380... login auth flow
     "react-redux": "^5.0.7",
+    "react-router-native": "^4.3.0",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0"

@@ -8,7 +8,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import { FaGoogle, FaEnvelope, FaFacebook } from 'react-icons/fa'
+import { FaGoogle, FaEnvelope } from 'react-icons/fa'
 import { server } from '../../config'
 import Snackbar from '@material-ui/core/Snackbar';
 import { getTitle }from '../routes'
@@ -124,12 +124,15 @@ class SignUp extends Component<{}> {
 									<FaGoogle style={{position: 'absolute', left: 8, fontSize: '25px'}}/> 
 									<span style={{marginRight: '5px', fontSize: '18px'}}>Sign up With GOOGLE</span>
 								</Button>
+<<<<<<< HEAD
 								</a> */}
 								<a href={`${server}/auth/facebook`} style={{textDecoration: 'none'}}>  
 									<Button style={styles.buttonFacebook} variant="raised" color="secondary">
 										<FaFacebook style={styles.icon}/> 
 										Sign Up With Facebook
 									</Button>
+=======
+>>>>>>> parent of 7432380... login auth flow
 								</a>
 						</div>
 						<div style={{marginTop: '40px', textAlign: 'center'}}>

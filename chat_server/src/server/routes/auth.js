@@ -19,6 +19,7 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook', {
 
 router.post('/facebook/token',
   passport.authenticate('facebook-token'),
+<<<<<<< HEAD
   (req, res) => {
     let user
     let token
@@ -33,6 +34,13 @@ router.post('/facebook/token',
 
     // return to user with STU
     res.send( user ? { status: status_codes.OK, user, token } : { status: status_codes.RESOURCE_DOESNT_EXISTS } );
+=======
+  function (req, res) {
+
+    res.send( req.user ? { status: 200, user: req.user } : { status: 401 } );
+  }
+);
+>>>>>>> parent of 7432380... login auth flow
 
   }
 )

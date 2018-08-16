@@ -5,7 +5,6 @@ export default {
     formWrap: {width: 320, margin: 'auto'},
     buttonWrapGoogle: { margin: 'auto'},
     button: {width: '100%', height: '40px', marginBottom: 10, fontSize: '18px'},
-    buttonFacebook: {backgroundColor: '#3B5998', width: '100%', height: '40px', marginBottom: 10, fontSize: '18px'},
     icon: {position: 'absolute', left: 8, fontSize: '25px'},
 
 }

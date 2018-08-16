@@ -2,10 +2,10 @@ import createReducer from '../lib/createReducer'
 import * as types from '../actions/types'
 
 export const user = createReducer({
-	login: false
+	signin: false
 },{
 	[types.USER_DATA](state, action){
-		let newState = Object.assign({}, action.payload)
+		let newState = action.payload
 		return newState
 	}
 })

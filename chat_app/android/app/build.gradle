@@ -137,8 +137,11 @@ android {
 }
 
 dependencies {
+<<<<<<< HEAD
     compile project(':react-native-splash-screen')
     compile project(':react-native-vector-icons')
+=======
+>>>>>>> parent of 7432380... login auth flow
     
     compile project(':react-native-fbsdk')
     compile fileTree(dir: "libs", include: ["*.jar"])

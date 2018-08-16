@@ -27,10 +27,14 @@ class FBLoginButton extends Component<{}> {
                             } else if (result.isCancelled) {
                                 // alert("login is cancelled.");
                             } else {
+<<<<<<< HEAD
                                 const result = await loginToServerWithFacebook().catch(e => console.log('there was an error in FBLoginButton/loginToServerWithFacebook()', e))
                                 if(result.login){
                                     this.props.handleLoginResult(result)
                                 }
+=======
+                                const token = await loginToServerWithFacebook()
+>>>>>>> parent of 7432380... login auth flow
                             }
                         }
                     }
