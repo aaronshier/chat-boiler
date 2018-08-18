@@ -3,31 +3,34 @@ import { SafeAreaView as View, StyleSheet, Text, Button } from 'react-native'
 
 import { createStackNavigator  } from 'react-navigation';
 
+import Icon from 'react-native-vector-icons/FontAwesome'
+
 class Profile extends Component {
     render() {
         return (
-            <View style={{flex: 1}}>
-                <View style={globalStyles.fillAndCenter}>
+            <View style={{flex: 1, backgroundColor: '#fff'}}>
+                <View style={styles.fillAndCenter}>
+                    <Icon name="user" style={{alignSelf: 'center', fontSize: 60}}/>
                     <Text style={{textAlign: 'center', fontSize: 30}}>
-                        My Profile
+                        Profile
                     </Text>
-                    <Button title="Settings" onPress={() => this.props.navigation.navigate('Settings')} />
+                    <Button title="Extras" onPress={() => this.props.navigation.navigate('Extra')} />
                 </View>
             </View>
         )
     }
 }
 
-class Settings extends Component {
-    componentDidMount(){
-        console.log('settings component!', this.props)
-    }
+class Extra extends Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                <View style={globalStyles.fillAndCenter}>
-                    <Button title={'Sign Out'} style={{textAlign: 'center'}} onPress={()=>this.props.screenProps.handleSignOut()}/>
-                    <Button onPress={() => this.props.navigation.navigate('Profile') } title={'Go Back'}/>
+                <View style={styles.fillAndCenter}>
+                    <Icon name="plus" style={{alignSelf: 'center', fontSize: 60}}/>
+                    <Text style={{textAlign: 'center', fontSize: 30}}>
+                        Extras
+                    </Text>
+                    <Button title="Back" onPress={() => this.props.navigation.navigate('Profile')} />
                 </View>
             </View>
         )
@@ -39,8 +42,8 @@ const ProfileContainer = createStackNavigator(
         Profile: {
             screen: Profile,
         },
-        Settings: {
-            screen: Settings,
+        Extra: {
+            screen: Extra,
         },
     },
     {
@@ -48,10 +51,9 @@ const ProfileContainer = createStackNavigator(
     }
 )
 
-
 export default ProfileContainer
 
-const globalStyles = StyleSheet.create({
+const styles = StyleSheet.create({
     fillSpace: {
         flex: 1
     },

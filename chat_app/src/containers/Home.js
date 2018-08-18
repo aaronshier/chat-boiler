@@ -4,25 +4,30 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { ActionCreators } from '../actions/index'
+import TxtInput from '../components/TxtInput'
 
 class Home extends Component<{}> {
-    componentWillMount(){
-        console.log(this.props)
-        
+    constructor(props){
+        super(props)
+    
+        this.state = {
+        }
     }
     render() {
         return (
-            <SafeAreaView style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <Icon name="home" style={{fontSize: 32}}/>
-                <Text style={{fontSize: 32}}>HOME</Text>
-            </SafeAreaView>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <Icon name="home" style={{alignSelf: 'center', fontSize: 60}}/>
+                <Text style={{textAlign: 'center', fontSize: 30}}>
+                    Home
+                </Text>
+            </View>
         )
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(redux) {
     return {
-        state
+        redux
     }
 }
 

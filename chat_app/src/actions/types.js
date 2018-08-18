@@ -3,3 +3,4 @@
 export const ADD_TEST = 'ADD_TEST'
 export const USER_DATA = 'USER_DATA'
 export const SITE_LOADED = 'SITE_LOADED'
+export const SOCKET = 'SOCKET'

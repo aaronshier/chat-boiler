@@ -3,11 +3,10 @@
 import express from 'express'
 
 import passport from 'passport'
-require('../config/passport')(passport)
+require('../../config/passport')(passport)
 passport.authenticate('jwt', { session: false})
 var jwt = require('jsonwebtoken')
-const config = require('../config')
-const { status_codes } = require('../../config')
+const { secret, status_codes } = require('../../config')
 const User = require('../models/user')
 let router = express.Router()
 
@@ -19,7 +18,7 @@ router.post('/signup', (req, res, next) => {
 
     if (!user) { return res.json({status: status_codes.RESOURCE_ALREADY_EXISTS, message: info}) }
 
-    let token = jwt.sign(user.toJSON(), config.secret)
+    let token = jwt.sign(user.toJSON(), secret)
 
     res.json({status: status_codes.RESOURCE_CREATED, user: info, token});
 
@@ -39,7 +38,7 @@ router.post('/login', function(req, res) {
         // check if password matches
         user.comparePasswordMobile(req.body.password, (err, authorized) => {
           if (authorized && !err) {
-            let token = jwt.sign(user.toJSON(), config.secret)
+            let token = jwt.sign(user.toJSON(), secret)
             // convert user to json object
             let userInfo = user.toJSON()
             // remove sensitive data

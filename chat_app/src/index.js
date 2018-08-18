@@ -7,6 +7,7 @@ import { prefix } from './config'
 import { loginToServerWithFacebook, loginWithAuthTokens, checkForAllTokens, logOutAll } from './components/auth'
 import Login from './containers/Login'
 import AppRouter from './containers/AppRouter'
+import SocketInitiator from './components/SocketInitiator'
 
 import SplashScreen from 'react-native-splash-screen'
 
@@ -51,7 +52,9 @@ class index extends Component<{}> {
     }
     return (
         <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}} >
-        
+          
+          <SocketInitiator />
+
           { this.state.login && this.state.loaded && <AppRouter screenProps={{user: this.state.login.login, ...screen_props}}/> }
             
           { !this.state.login && this.state.loaded && <Login screenProps={screen_props}/> }

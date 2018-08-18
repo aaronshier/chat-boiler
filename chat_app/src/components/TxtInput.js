@@ -8,7 +8,7 @@ class TxtInput extends Component<{}> {
         this.state = {}
     }
     handleChange = (e) => {// console.log({prop: this.props.id, val: e})
-        this.props.onChange({prop: this.props.id, val: e})
+        this.props.onChange({ prop : this.props.id, val: e})
     }
     render() {
         return (

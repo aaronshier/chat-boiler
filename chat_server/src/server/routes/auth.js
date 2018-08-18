@@ -1,12 +1,11 @@
 
 import express from 'express'
 import passport from 'passport'
-require('../config/passport')(passport)
+require('../../config/passport')(passport)
 passport.authenticate('jwt', { session: false})
 var jwt = require('jsonwebtoken')
-const config = require('../config')
 
-import { server, status_codes } from '../../config'
+import { server, secret, status_codes } from '../../config'
 
 let router = express.Router()
 
@@ -28,7 +27,7 @@ router.post('/facebook/token',
         delete user.password
         delete user.facebook.refresh_token
         // Get json web token
-        token = jwt.sign(user.toJSON(), config.secret)
+        token = jwt.sign(user.toJSON(), secret)
     }
 
     // return to user with STU
