@@ -11,10 +11,11 @@ export const socket = 8001
 export const status_codes = {
     OK: 200,
     RESOURCE_CREATED: 201,
-    RESOURCE_DOESNT_EXISTS: 210,
-    RESOURCE_ALREADY_EXISTS: 211,
-    NOT_FOUND: 400,
-    MISSING: 501
+	BAD_CREDENTIALS: 400,
+    RESOURCE_DOESNT_EXISTS: 401,
+    RESOURCE_ALREADY_EXISTS: 402,
+	NOT_FOUND: 404,
+    MISSING: 501,
 }
 
 const database_name = 'chat_app'

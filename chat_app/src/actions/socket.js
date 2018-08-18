@@ -6,3 +6,10 @@ export function loadSocket( socket ) {
 		payload: socket
 	}
 }
+
+export function incomingGlobalChat( message ) {
+	return {
+		type: types.GLOBAL_CHAT,
+		payload: message
+	}
+}

@@ -31,12 +31,12 @@ router.post('/login', function(req, res) {
       email: req.body.email
     }, function(err, user) {
       if (err) throw err
-
       if (!user) {
-        res.status(401).send({success: false, msg: 'Authentication failed. User not found.'})
+        res.status(status_codes.RESOURCE_DOESNT_EXISTS).send({status: status_code.RESOURCE_DOESNT_EXISTS, error: 'Authentication failed. User not found.'})
       } else {
         // check if password matches
         user.comparePasswordMobile(req.body.password, (err, authorized) => {
+          
           if (authorized && !err) {
             let token = jwt.sign(user.toJSON(), secret)
             // convert user to json object
@@ -47,7 +47,9 @@ router.post('/login', function(req, res) {
               delete userInfo.facebook.refresh_token
             }
             // return to user with STU ({status, token, user})
-            res.json({status: 200, token, user: userInfo})
+            res.json({status: status_codes.OK, token, user: userInfo})
+          } else {
+            res.json({status: status_codes.BAD_CREDENTIALS, error: 'Authorization failed, check username and password'})
           }
         })
       }

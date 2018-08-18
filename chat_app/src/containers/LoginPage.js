@@ -35,16 +35,19 @@ class LoginPage extends Component<{}> {
     }
 
     handleLocalLoginSubmission = async () => {
-        let login = await fetch(`${server}/api/mobile/login`, {
-            method: 'POST',
-            headers: {
-                'user-agent': 'Mozilla/4.0 MDN Example',
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify(this.state)
-        }).then(response => response.json())
-        await AsyncStorage.setItem(`@${prefix}:jwt`, login.token);
-        this.props.screenProps.handleLogin(login)
+        if(this.state.email && this.state.password){
+            let login = await fetch(`${server}/api/mobile/login`, {
+                method: 'POST',
+                headers: {
+                    'user-agent': 'Mozilla/4.0 MDN Example',
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify(this.state)
+            }).then(response => response.json())
+            if(login.status < 300)
+            await AsyncStorage.setItem(`@${prefix}:jwt`, login.token);
+            this.props.screenProps.handleLogin(login)
+        }
     }
     render() {
         return (

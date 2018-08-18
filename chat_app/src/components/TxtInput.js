@@ -16,6 +16,7 @@ class TxtInput extends Component<{}> {
                 style={[styles.input, this.props.styles]}
                 placeholder={this.props.placeholder}
                 onChangeText={this.handleChange}
+                value={this.props.value}
                 autoCapitalize={this.props.autoCapitalize}
             />
         )

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { ActionCreators } from '../actions/index'
+import Btn from '../components/Btn'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -19,6 +20,9 @@ class Settings extends Component {
                     <Text style={{textAlign: 'center', fontSize: 30}}>
                         Profile
                     </Text>
+                    <TouchableOpacity>
+                        <Btn text={'logout'} styles={{alignSelf: 'center'}} onPress={this.props.screenProps.handleSignOut} />
+                    </TouchableOpacity>
                 </View>
             </View>
         )

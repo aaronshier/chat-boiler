@@ -5,11 +5,8 @@ import { server, status_codes } from '../../config'
 
 export const checkForLocalToken = async () => {
     try {
-        console.log('fetching data!!')
         const value = await AsyncStorage.getItem(`@${prefix}:jwt`).catch(e => console.log('there was an error in checkForLocalToken', e))
-        console.log('data!!', value)
         if (value !== null) {
-            console.log(' We have data!!')
             return value
         }
     } catch (error) {
@@ -20,7 +17,6 @@ export const checkForLocalToken = async () => {
 export const eraseLocalToken = async () => {
     try {
         const value = await AsyncStorage.removeItem(`@${prefix}:jwt`, '').catch(e => console.log('there was an error in eraseLocalToken', e))
-        console.log('erasing data!! data = ', value)
         if (value === null) {
             return true
         }
@@ -32,8 +28,6 @@ export const eraseLocalToken = async () => {
 export const loginWithLocalToken = async (info) => {
     let user_token = info.token
     let user
-
-    console.log({user_token})
 
     if(user_token){
         login = await fetch(`${server}/api/mobile/auto-login`, {

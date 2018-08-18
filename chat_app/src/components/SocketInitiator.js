@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index'
 import { server, wsport } from '../config'
 import { Socket } from '../services'
+import { checkForAllTokens } from './auth'
 
 class SocketInitiator extends Component<{}> {
     constructor(props){
@@ -13,10 +14,10 @@ class SocketInitiator extends Component<{}> {
         this.state = {
             connected: false,
         }
-        let socket = new WebSocket(wsport);
 
-        socket.onopen = () => {
-            socket.send('---------> this is a mess from the sok <---------')
+        let socket = new WebSocket(wsport);
+    
+        socket.onopen = () => { 
             this.setState({connected:true})
             this.props.loadSocket(socket)
         }
