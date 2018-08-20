@@ -60,9 +60,7 @@ class Chat extends Component<{}> {
                             }
                         }
                     />
-                    
-                        <Btn styles={{width: '100%'}} onPress={this.sendNewMessage} text={'Work?'} />
-                    
+                    <Btn styles={{width: '100%'}} onPress={this.sendNewMessage} text={'SEND'} />
                 </View>
             </View>
         )

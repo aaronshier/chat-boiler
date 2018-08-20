@@ -52,11 +52,13 @@ class index extends Component<{}> {
     return (
         <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}} >
           
-          <SocketInitiator />
 
           { 
             this.state.credentials && this.state.loaded && 
+            <View>
+              <SocketInitiator />
               <AppRouter screenProps={{credentials: this.state.credentials, ...screen_props}}/> 
+            </View>
           }
             
           { 

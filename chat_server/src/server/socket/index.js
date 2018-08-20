@@ -10,34 +10,28 @@ var jwt = require('jsonwebtoken')
 console.log(`\n---> running wss on ${socket}  <---\n`)
  
 wss.on('connection', function connection(ws) {
-  let token 
-  console.log('user connected -> ', wss.clients)
+
+
+  wss.clients.forEach((c, i)=> {
+    if(c == ws){
+      console.log('I found it!', i)
+    }
+  })
 
   ws.on('message', async function incoming(data) {
     let response
     data = JSON.parse(data)
     console.log('user logged in', (wss.clients.length+1))
     if(data.auth.platform === 'facebook'){
-      
       let user = await User.findOne({'facebook.access_token': data.auth.accessToken})
-
       if(user){
         user = user.toJSON()
-        delete user.password
-        delete user.__v
-        delete user.iat
-        delete user.facebook.id
-        delete user.facebook.access_token
-        delete user.facebook.refresh_token
-        delete user.facebook.email
+        delete user.password; delete user.__v; delete user.iat; delete user.facebook.id;
+        delete user.facebook.access_token; delete user.facebook.refresh_token; delete user.facebook.email
       }
-
       response = {
-        status: status_codes.LOGGED_IN,
-        user: user,
-        data: data.message
+        status: status_codes.LOGGED_IN, user: user, data: data.message
       }
-      
     }
 
     if(data.auth.platform === 'local'){
@@ -60,9 +54,9 @@ wss.on('connection', function connection(ws) {
     }
     console.log('sending message to clients !', response)
     wss.clients.forEach(client => {
-      if (client != ws) {
+      // if (client != ws) {
         client.send(JSON.stringify(response));
-      }
+      // }
     })
 
   });
