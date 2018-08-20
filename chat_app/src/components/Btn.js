@@ -4,8 +4,25 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 class Btn extends Component<{}> {
     render() {
+        const styles = StyleSheet.create({
+            wrap: {
+                width: this.props.styles && this.props.styles.width ? this.props.styles.width : 260,
+                flexDirection: 'row',
+                alignItems: 'center',
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 2,
+                justifyContent: 'center',
+                backgroundColor: '#333'
+            },
+            text: {
+                fontWeight: '900',
+                fontSize: 16
+            }
+        
+        })
         return (
-             <TouchableOpacity onPress={this.props.onPress} style={[styles.wrap, this.props.styles]}>
+             <TouchableOpacity onPress={this.props.onPress} style={[ this.props.styles, styles.wrap]}>
                  { this.props.iconFont && <Icon name={this.props.iconFont} style={[styles.text, {marginRight: 10, fontSize: 20, color: this.props.styles && this.props.styles.color ? this.props.styles.color : '#fff'}]}/> }
                  <Text style={[styles.text, {color: this.props.styles && this.props.styles.color ? this.props.styles.color : '#fff'}]}>{this.props.text}</Text>
              </TouchableOpacity>
@@ -14,21 +31,3 @@ class Btn extends Component<{}> {
 }
 
 export default Btn
-
-const styles = StyleSheet.create({
-    wrap: {
-        width: 260,
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        borderRadius: 2,
-        justifyContent: 'center',
-        backgroundColor: '#333'
-    },
-    text: {
-        fontWeight: '900',
-        fontSize: 16
-    }
-
-})

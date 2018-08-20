@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { ActionCreators } from '../actions/index'
 import TxtInput from '../components/TxtInput'
 import Btn from '../components/Btn'
+import Header from '../components/Header'
+
 import { checkForAllTokens } from '../components/auth'
+
 class Chat extends Component<{}> {
     constructor(props){
         super(props)
@@ -36,34 +39,31 @@ class Chat extends Component<{}> {
     sendNewMessage = async () => {
         let auth = await checkForAllTokens()
         let msg = this.formatMessage(this.state, auth)
-        console.log('sending ... ',msg)
         this.socket.send(msg)
     }
     render() {
         return (
             <View style={styles.fillAndCenter}>
-                <View style={{flex:1}}>
-                </View>
-                <View style={{flex:1}}>
-                    <Icon name="comments" style={{alignSelf: 'center', fontSize: 60}}/>
-                    <Text style={{textAlign: 'center', fontSize: 30}}>
-                        Chat
-                    </Text>
+                <Header />
+                <View style={{flex: 1}}>
+                    <ScrollView style={{flex:1}}>
+                        { this.props.redux.global_messages && this.props.redux.global_messages.map( (m, i) => (
+                            <Text key={i}>{m.data.message}</Text>
+                        )) }
+                    </ScrollView>
                     <TxtInput 
-                        styles={{alignSelf: 'center', marginTop: 10}}
+                        styles={{alignSelf: 'center', width: '100%', marginTop: 10}}
                         id={'message'}
                         value={this.state.text}
                         onChange={({prop, val})=>{
-                            this.setState({[prop]: val})
-                          }
-                        }/>
-
+                                this.setState({[prop]: val})
+                            }
+                        }
+                    />
+                    
+                        <Btn styles={{width: '100%'}} onPress={this.sendNewMessage} text={'Work?'} />
+                    
                 </View>
-                <ScrollView style={{flex:1}}>
-                    { this.props.redux.global_messages && this.props.redux.global_messages.map( (m, i) => (
-                        <Text key={i}>{m.data.message}</Text>
-                    )) }
-                </ScrollView>
             </View>
         )
     }
