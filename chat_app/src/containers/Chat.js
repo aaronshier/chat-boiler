@@ -11,11 +11,12 @@ import Header from '../components/Header'
 import { checkForAllTokens } from '../components/auth'
 
 class Chat extends Component<{}> {
+
     constructor(props){
         super(props)
     
         this.state = {
-            user_id: '123',
+            user_id: this.props.redux.user._id,
             message: '',
             mention: '@anyone',
             chaticon: 'finger'
@@ -29,18 +30,21 @@ class Chat extends Component<{}> {
         }
 
     }
+
     formatMessage = (message, auth) => {
         return JSON.stringify({
-            type: 'message',
+            type: 'chat',
             message,
             auth
         })
     }
+
     sendNewMessage = async () => {
         let auth = await checkForAllTokens()
         let msg = this.formatMessage(this.state, auth)
         this.socket.send(msg)
     }
+
     render() {
         return (
             <View style={styles.fillAndCenter}>

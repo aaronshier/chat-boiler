@@ -25,7 +25,11 @@ router.post('/facebook/token',
         user = req.user
         // Remove sensitive data
         delete user.password
+        user.password = 'xxx'
+
         delete user.facebook.refresh_token
+        user.facebook.refresh_token = 'xxx'
+        
         // Get json web token
         token = jwt.sign(user.toJSON(), secret)
     }

@@ -11,54 +11,63 @@ console.log(`\n---> running wss on ${socket}  <---\n`)
  
 wss.on('connection', function connection(ws) {
 
-
-  wss.clients.forEach((client)=> {
-    if(client === ws){
-      client.id = 'my id'
-      console.log('I found it, showing id!', client.id)
-      client.send(JSON.stringify('response to sign in'));
-    }
-  })
+  let user = null
 
   ws.on('message', async function incoming(data) {
     let response
     data = JSON.parse(data)
+
+    // Validate Facebook Auth Token and get user data
     if(data.auth.platform === 'facebook'){
-      let user = await User.findOne({'facebook.access_token': data.auth.accessToken})
+      console.log("access token: ", data.auth.accessToken)
+      user = await User.findOne({'facebook.access_token': data.auth.accessToken})
+
+      console.log(user)
       if(user){
         user = user.toJSON()
+        ws.id = user._id
         delete user.password; delete user.__v; delete user.iat; delete user.facebook.id;
         delete user.facebook.access_token; delete user.facebook.refresh_token; delete user.facebook.email
+      } else {
+        // TODO: SEND REQUEST TO FACEBOOK API FOR ACCESS TOKEN SIGNING.  THEN UPDATE THE USERS TOKENS IN THE DB
       }
       response = {
-        status: status_codes.LOGGED_IN, user: user, data: data.message
+        user: user
       }
     }
 
+    // Validate Local Auth Token and get user data
     if(data.auth.platform === 'local'){
       // run local verify code here
       token = data.auth.token
       
-      let user = await jwt.verify(token, secret)
-
+      user = await jwt.verify(token, secret)
+      //TODO: check these deletes make sure they work
       if(user){
         delete user.password
         delete user.__v
         delete user.iat
       }
-      
-      response = {
-        status: status_codes.LOGGED_IN,
-        user: user,
-        data: data.message
-      }
     }
-    console.log('sending message to clients !')
-    wss.clients.forEach(client => {
-      // if (client != ws) {
-        client.send(JSON.stringify(response));
-      // }
-    })
+
+    // Now that we're authenticated we can send messages
+    console.log("sending login", user)
+    if(user._id && data.type === 'login'){
+      response.user = user
+      response.type = login
+      ws.send(JSON.stringify(response))
+    }
+
+    if(response.user && data.type === 'chat'){
+      
+      response.data = data.message,
+      response.type = 'chat'
+
+      wss.clients.forEach(client => {
+          client.send(JSON.stringify(response))
+      })
+
+    }
 
   })
 

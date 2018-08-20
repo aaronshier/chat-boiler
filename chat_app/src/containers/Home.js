@@ -5,12 +5,26 @@ import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { ActionCreators } from '../actions/index'
 import TxtInput from '../components/TxtInput'
+import { checkForAllTokens } from '../components/auth'
 
 class Home extends Component<{}> {
     constructor(props){
         super(props)
     
         this.state = {
+        }
+        this.socket = this.props.redux.socket
+    }
+    async componentWillMount(){
+        let auth = await checkForAllTokens()
+        this.socket.send(JSON.stringify({
+                type: 'login',
+                message: this.props.redux.user,
+                auth
+            })
+        )
+        this.socket.onmessage = (e) => {
+            console.log('login message ------>', e)
         }
     }
     render() {
