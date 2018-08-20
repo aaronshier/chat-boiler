@@ -78,7 +78,7 @@ class LoginPage extends Component<{}> {
                 <Btn
                     text={'Sign Up'}
                     iconFont={'sign-in'}
-                    styles={{marginTop: 10, backgroundColor: 'transparent', color: '#000'}}
+                    styles={{marginTop: 10, color: '#fff'}}
                     onPress={()=>this.props.navigation.navigate('SignupPage')}
                 />
             </SafeAreaView>

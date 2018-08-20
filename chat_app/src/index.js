@@ -17,7 +17,8 @@ class index extends Component<{}> {
   
     this.state = {
       credentials: false,
-      loaded: false
+      loaded: false,
+      socket: false,
     }
   }
   handleLogin = (result) => {
@@ -28,7 +29,7 @@ class index extends Component<{}> {
     const logout = await logOutAll()
     this.setState({credentials: false})
   }
-
+  
   async componentWillMount(){
     let response = false
     const tokens = await checkForAllTokens().catch(e => console.log('there was an error in index.js/checkForAllTokens()', e))
@@ -52,13 +53,14 @@ class index extends Component<{}> {
     return (
         <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}} >
           
+          { 
+            this.state.credentials && this.state.loaded &&
+              <SocketInitiator socketOpen={open =>this.setState({socket: open})}/>
+          }
 
           { 
-            this.state.credentials && this.state.loaded && 
-            <View>
-              <SocketInitiator />
+            this.state.credentials && this.state.loaded && this.state.socket &&
               <AppRouter screenProps={{credentials: this.state.credentials, ...screen_props}}/> 
-            </View>
           }
             
           { 

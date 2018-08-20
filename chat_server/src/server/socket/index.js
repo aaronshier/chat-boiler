@@ -12,16 +12,17 @@ console.log(`\n---> running wss on ${socket}  <---\n`)
 wss.on('connection', function connection(ws) {
 
 
-  wss.clients.forEach((c, i)=> {
-    if(c == ws){
-      console.log('I found it!', i)
+  wss.clients.forEach((client)=> {
+    if(client === ws){
+      client.id = 'my id'
+      console.log('I found it, showing id!', client.id)
+      client.send(JSON.stringify('response to sign in'));
     }
   })
 
   ws.on('message', async function incoming(data) {
     let response
     data = JSON.parse(data)
-    console.log('user logged in', (wss.clients.length+1))
     if(data.auth.platform === 'facebook'){
       let user = await User.findOne({'facebook.access_token': data.auth.accessToken})
       if(user){
@@ -52,14 +53,13 @@ wss.on('connection', function connection(ws) {
         data: data.message
       }
     }
-    console.log('sending message to clients !', response)
+    console.log('sending message to clients !')
     wss.clients.forEach(client => {
       // if (client != ws) {
         client.send(JSON.stringify(response));
       // }
     })
 
-  });
+  })
 
-
-});
+})

@@ -20,6 +20,7 @@ class SocketInitiator extends Component<{}> {
         socket.onopen = () => { 
             this.setState({connected:true})
             this.props.loadSocket(socket)
+            this.props.socketOpen(true)
         }
     }
     render() { return null }
