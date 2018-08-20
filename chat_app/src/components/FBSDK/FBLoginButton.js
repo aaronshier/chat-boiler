@@ -12,9 +12,6 @@ const {
   AccessToken
 } = FBSDK;
 class FBLoginButton extends Component<{}> {
-    componentDidMount(){
-        console.log('this is our FBSDK Button props', this.props)
-    }
     render() {
         return (
 

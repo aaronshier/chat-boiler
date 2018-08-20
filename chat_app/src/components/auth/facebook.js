@@ -15,8 +15,6 @@ export const loginToServerWithFacebook = async (token) => {
     let login
     let user = {}
 
-    console.log({token})
-
     if(token){
         login = await fetch(`${server}/auth/facebook/token`, {
             method: 'POST',

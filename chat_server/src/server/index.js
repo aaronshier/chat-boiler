@@ -10,6 +10,7 @@ import cookieSession from 'cookie-session'
 import helmet from 'helmet'
 import favicon from 'serve-favicon'
 
+
 // Import Routes
 import ssr from './routes/ssr.js'
 import tests from './routes/tests.js'
@@ -24,11 +25,15 @@ const app = express()
 const port = process.env.PORT || 8000
 
 // Configure DB
-const configDB = require('./config').database
-mongoose.connect(configDB.url)
+import { database } from '../config'
+
+mongoose.connect(database.url)
 
 // Add Passport Config To Passport
-require('./config/passport')(passport)
+require('../config/passport')(passport)
+
+// Chat Socket Server
+require('./socket')
 
 // Setup Basic Security
 app.use(helmet())

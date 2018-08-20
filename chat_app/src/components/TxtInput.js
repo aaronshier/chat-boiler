@@ -8,7 +8,7 @@ class TxtInput extends Component<{}> {
         this.state = {}
     }
     handleChange = (e) => {// console.log({prop: this.props.id, val: e})
-        this.props.onChange({prop: this.props.id, val: e})
+        this.props.onChange({ prop : this.props.id, val: e})
     }
     render() {
         return (
@@ -16,6 +16,7 @@ class TxtInput extends Component<{}> {
                 style={[styles.input, this.props.styles]}
                 placeholder={this.props.placeholder}
                 onChangeText={this.handleChange}
+                value={this.props.value}
                 autoCapitalize={this.props.autoCapitalize}
             />
         )

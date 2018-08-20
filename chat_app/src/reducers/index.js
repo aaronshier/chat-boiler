@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
-import * as userReducer from './user'
+import * as user from './user'
+import * as socket from './socket'
 
 export default combineReducers(Object.assign(
-	userReducer,
+	user,
+	socket,
 ))

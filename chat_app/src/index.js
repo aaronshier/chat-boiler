@@ -7,6 +7,7 @@ import { prefix } from './config'
 import { loginToServerWithFacebook, loginWithAuthTokens, checkForAllTokens, logOutAll } from './components/auth'
 import Login from './containers/Login'
 import AppRouter from './containers/AppRouter'
+import SocketInitiator from './components/SocketInitiator'
 
 import SplashScreen from 'react-native-splash-screen'
 
@@ -15,18 +16,17 @@ class index extends Component<{}> {
     super(props)
   
     this.state = {
-      login: false,
+      credentials: false,
       loaded: false
     }
   }
   handleLogin = (result) => {
-    console.log({handleLogin: result})
-    this.setState({ login: result  })
+    this.setState({ credentials: result  })
   }
 
   handleSignOut = async () => {
     const logout = await logOutAll()
-    this.setState({login: false})
+    this.setState({credentials: false})
   }
 
   async componentWillMount(){
@@ -35,7 +35,7 @@ class index extends Component<{}> {
     if(tokens) response = await loginWithAuthTokens(tokens)
     if(response.login){
       console.log('login happened')
-      await this.setState({ login: response, loaded: true  })
+      await this.setState({ credentials: response, loaded: true  })
       SplashScreen.hide()
     } else {
       console.log('login didnt happen')
@@ -51,10 +51,19 @@ class index extends Component<{}> {
     }
     return (
         <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}} >
-        
-          { this.state.login && this.state.loaded && <AppRouter screenProps={{user: this.state.login.login, ...screen_props}}/> }
+          
+
+          { 
+            this.state.credentials && this.state.loaded && 
+            <View>
+              <SocketInitiator />
+              <AppRouter screenProps={{credentials: this.state.credentials, ...screen_props}}/> 
+            </View>
+          }
             
-          { !this.state.login && this.state.loaded && <Login screenProps={screen_props}/> }
+          { 
+            !this.state.credentials && this.state.loaded && <Login screenProps={screen_props}/> 
+          }
           
         </View>
     )
