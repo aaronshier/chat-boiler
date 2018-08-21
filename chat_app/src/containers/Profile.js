@@ -3,6 +3,8 @@ import { SafeAreaView as View, StyleSheet, Text, Button } from 'react-native'
 
 import { createStackNavigator  } from 'react-navigation';
 
+import ExampleActionSheet from '../components/ExampleActionSheet';
+
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 class Profile extends Component {
@@ -14,7 +16,7 @@ class Profile extends Component {
                     <Text style={{textAlign: 'center', fontSize: 30}}>
                         Profile
                     </Text>
-                    <Button title="Extras" onPress={() => this.props.navigation.navigate('Extra')} />
+                    <View style={{alignSelf: 'center', marginBottom: 10, width: 100}}><Button title="Extras" onPress={() => this.props.navigation.navigate('Extra')} /></View>
                 </View>
             </View>
         )
@@ -30,7 +32,8 @@ class Extra extends Component {
                     <Text style={{textAlign: 'center', fontSize: 30}}>
                         Extras
                     </Text>
-                    <Button title="Back" onPress={() => this.props.navigation.navigate('Profile')} />
+                    <ExampleActionSheet />
+                    <View style={{alignSelf: 'center', marginBottom: 10, width: 100}}><Button title="Back" onPress={() => this.props.navigation.navigate('Profile')} /></View>
                 </View>
             </View>
         )
