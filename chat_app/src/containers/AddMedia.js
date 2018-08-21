@@ -4,22 +4,46 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { ActionCreators } from '../actions/index'
+import ImagePicker from 'react-native-image-crop-picker';
 
 class AddMedia extends Component<{}> {
+    openCamera = () => {
+        ImagePicker.openCamera({
+            width: 300,
+            height: 400,
+            cropping: true
+          }).then(image => {
+            console.log(image);
+          }).catch(e => {
+              console.log(e)
+          })
+          
+    }
+    openLibrary = () => {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+          }).then(image => {
+            console.log(image);
+          }).catch(e => {
+            console.log(e)
+        })
+    }
     render() {
         return (
             <View style={styles.sections}>
-                <TouchableOpacity style={styles.buttons}>
+                <TouchableOpacity style={styles.buttons} onPress={this.openCamera}>
                     <Icon name="camera" style={{alignSelf: 'center', fontSize: 60}}/>
                     <Text style={{textAlign: 'center', fontSize: 30}}>
                         Camera
                     </Text>
                 </TouchableOpacity>
                 <View style={styles.divider}/>
-                <TouchableOpacity style={styles.buttons}>
+                <TouchableOpacity style={styles.buttons} onPress={this.openLibrary}>
                     <Icon name="image" style={{alignSelf: 'center', fontSize: 60}}/>
                     <Text style={{textAlign: 'center', fontSize: 30}}>
-                        Camera
+                        Library
                     </Text>
                 </TouchableOpacity>
             </View>

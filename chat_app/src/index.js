@@ -40,7 +40,7 @@ class index extends Component<{}> {
       await this.props.userData(response)
       SplashScreen.hide()
     } else {
-      console.log('login didnt happen')
+      console.log('login didnt happen', response)
       await this.setState({loaded: true})
       SplashScreen.hide()
     }
@@ -53,7 +53,6 @@ class index extends Component<{}> {
     }
     return (
         <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}} >
-          
           {
             // Once the user has logged in open the socket
             this.state.credentials && this.state.loaded &&
@@ -69,7 +68,6 @@ class index extends Component<{}> {
           { 
             !this.state.credentials && this.state.loaded && !this.state.socket && <Login screenProps={screen_props}/> 
           }
-          
         </View>
     )
   }

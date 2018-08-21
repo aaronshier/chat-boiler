@@ -16,24 +16,31 @@ wss.on('connection', function connection(ws) {
   ws.on('message', async function incoming(data) {
     let response
     data = JSON.parse(data)
-
+    console.log({data})
     // Validate Facebook Auth Token and get user data
     if(data.auth.platform === 'facebook'){
+
       console.log("access token: ", data.auth.accessToken)
+
       user = await User.findOne({'facebook.access_token': data.auth.accessToken})
 
       console.log(user)
+
       if(user){
         user = user.toJSON()
         ws.id = user._id
         delete user.password; delete user.__v; delete user.iat; delete user.facebook.id;
         delete user.facebook.access_token; delete user.facebook.refresh_token; delete user.facebook.email
-      } else {
-        // TODO: SEND REQUEST TO FACEBOOK API FOR ACCESS TOKEN SIGNING.  THEN UPDATE THE USERS TOKENS IN THE DB
+      } else if(data.auth.accessToken){
+        
+        console.log('hmmmmm, looks like your facebook token and your database token are different, lets run the update logic ')
+
       }
+
       response = {
         user: user
       }
+      console.log({response})
     }
 
     // Validate Local Auth Token and get user data
