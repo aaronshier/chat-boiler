@@ -19,12 +19,13 @@ class Home extends Component<{}> {
         let auth = await checkForAllTokens()
         this.socket.send(JSON.stringify({
                 type: 'login',
-                message: this.props.redux.user,
+                user: this.props.redux.user,
                 auth
             })
         )
         this.socket.onmessage = (e) => {
-            console.log('login message ------>', e)
+            alert(JSON.stringify(e))
+            //let message = JSON.parse(e)
         }
     }
     render() {

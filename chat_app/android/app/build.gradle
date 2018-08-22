@@ -99,6 +99,7 @@ android {
 
     defaultConfig {
         applicationId "com.chat_app"
+        vectorDrawables.useSupportLibrary = true // REACT NATIVE IMAGE CROPPER PICKER
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
