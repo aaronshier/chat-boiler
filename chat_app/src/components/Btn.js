@@ -22,7 +22,7 @@ class Btn extends Component<{}> {
         
         })
         return (
-             <TouchableOpacity onPress={this.props.onPress} style={[ this.props.styles, styles.wrap]}>
+             <TouchableOpacity onPress={this.props.onPress} style={[ styles.wrap, this.props.styles ]}>
                  { this.props.iconFont && <Icon name={this.props.iconFont} style={[styles.text, {marginRight: 10, fontSize: 20, color: this.props.styles && this.props.styles.color ? this.props.styles.color : '#fff'}]}/> }
                  <Text style={[styles.text, {color: this.props.styles && this.props.styles.color ? this.props.styles.color : '#fff'}]}>{this.props.text}</Text>
              </TouchableOpacity>

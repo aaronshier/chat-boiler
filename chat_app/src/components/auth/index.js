@@ -17,12 +17,13 @@ export const loginWithAuthTokens = async (tokens) => {
 }
 
 export const checkForAllTokens = async () => {
-
     let facebook = await checkForFacebookToken().catch(e => console.log('there was an error in checkForFacebookTokentoken', e))
     if(facebook) facebook = Object.assign({platform: 'facebook'}, facebook)
+    console.log('checkForFacebookToken (facebook) => ', ({facebook}))
     
     let local = await checkForLocalToken().catch(e => console.log('there was an error in checkForLocalToken', e))
     if(local) local = Object.assign({platform: 'local'}, {token: local})
+    console.log('checkForLocalToken (local) => ', {local})
     
     if(local || facebook){
         return (local || facebook || null)

@@ -34,7 +34,11 @@
 	<key>FacebookAppID</key>
 	<string>1347027622099102</string>
 	<key>FacebookDisplayName</key>
-	<string>OHSHUTIT APP</string>
+	<string>CHAT_APP</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>CHAT_APP would like access to your photo gallery</string>
+	<key>NSCameraUsageDescription</key>
+	<string>CHAT_APP would like access to your photo gallery</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>

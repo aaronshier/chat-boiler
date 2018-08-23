@@ -15,7 +15,8 @@ export const status_codes = {
     RESOURCE_DOESNT_EXISTS: 401,
     RESOURCE_ALREADY_EXISTS: 402,
 	NOT_FOUND: 404,
-    MISSING: 501,
+	MISSING: 501,
+	skt105: 'Sockets authentication didnt find any matching users'
 }
 
 const database_name = 'chat_app'

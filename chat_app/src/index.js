@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { ActionCreators } from './actions/index'
-import { View, Text, AsyncStorage, TouchableOpacity } from 'react-native'
+import { View, Text, AsyncStorage, StatusBar, TouchableOpacity } from 'react-native'
 import { prefix } from './config'
 import { loginToServerWithFacebook, loginWithAuthTokens, checkForAllTokens, logOutAll } from './components/auth'
 import Login from './containers/Login'
 import AppRouter from './containers/AppRouter'
-import SocketInitiator from './components/SocketInitiator'
+import SocketInitiator from './components/SocketManager'
 
 import SplashScreen from 'react-native-splash-screen'
 
@@ -40,7 +40,7 @@ class index extends Component<{}> {
       await this.props.userData(response)
       SplashScreen.hide()
     } else {
-      console.log('login didnt happen')
+      console.log('login didnt happen', response)
       await this.setState({loaded: true})
       SplashScreen.hide()
     }
@@ -53,7 +53,10 @@ class index extends Component<{}> {
     }
     return (
         <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}} >
-          
+          <StatusBar
+            backgroundColor="blue"
+            barStyle="dark-content"
+          />
           {
             // Once the user has logged in open the socket
             this.state.credentials && this.state.loaded &&
@@ -69,15 +72,14 @@ class index extends Component<{}> {
           { 
             !this.state.credentials && this.state.loaded && !this.state.socket && <Login screenProps={screen_props}/> 
           }
-          
         </View>
     )
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(redux) {
   return {
-    state
+    redux
   }
 }
 

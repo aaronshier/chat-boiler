@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Image, KeyboardAvoidingView } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -24,11 +24,13 @@ class Chat extends Component<{}> {
 
         this.socket = this.props.redux.socket
 
-        this.socket.onmessage = (d) => {
-            let msg = JSON.parse(d.data)
-            this.props.incomingGlobalChat(msg)
-        }
+        this.socket.onmessage = this.recieveMessage
 
+    }
+
+    recieveMessage = (m) => {
+        let data = JSON.parse(m.data)
+        this.props.incomingGlobalChat(data)
     }
 
     formatMessage = (message, auth) => {
@@ -42,7 +44,8 @@ class Chat extends Component<{}> {
     sendNewMessage = async () => {
         let auth = await checkForAllTokens()
         let msg = this.formatMessage(this.state, auth)
-        this.socket.send(msg)
+        await this.socket.send(msg)
+        this.setState({message: ''})
     }
 
     render() {
@@ -51,20 +54,40 @@ class Chat extends Component<{}> {
                 <Header />
                 <View style={{flex: 1}}>
                     <ScrollView style={{flex:1}}>
-                        { this.props.redux.global_messages && this.props.redux.global_messages.map( (m, i) => (
-                            <Text key={i}>{m.data.message}</Text>
+                        { this.props.redux.global_messages && this.props.redux.global_messages.map( (d, i) => (
+                        <View style={{
+                            paddingHorizontal: 10,
+                            paddingVertical: 5
+                        }}>
+                            <View key={i} style={{
+                                flexDirection: 'row',
+                                alignItems: 'center'}}>
+                                { 
+                                    d.avatar && <Image style={{
+                                        borderRadius: 13,
+                                        marginRight: 10,
+                                        height: 26,
+                                        width: 26,
+                                        resizeMode: 'cover'}} resizeMode="contain" source={{uri: d.avatar.replace(/600/g, '78')}} /> // : <Image style={{height: 35, width: 35}} source={require('../images/tempAvatar.jpg')} /> } 
+                                }
+                                <Text>{d.message}</Text>
+                            </View>
+                            <Text style={{fontSize: 7, marginTop: 3}}>USER ID: {d.user_id}</Text>
+                        </View>
                         )) }
                     </ScrollView>
-                    <TxtInput 
-                        styles={{alignSelf: 'center', width: '100%', marginTop: 10}}
-                        id={'message'}
-                        value={this.state.text}
-                        onChange={({prop, val})=>{
-                                this.setState({[prop]: val})
+                    <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50} enabled>
+                        <TxtInput 
+                            styles={{alignSelf: 'center', width: '100%', marginTop: 10}}
+                            id={'message'}
+                            value={this.state.message}
+                            onChange={({prop, val})=>{
+                                    this.setState({[prop]: val})
+                                }
                             }
-                        }
-                    />
-                    <Btn styles={{width: '100%'}} onPress={this.sendNewMessage} text={'SEND'} />
+                        />
+                        <Btn styles={{width: '100%'}} onPress={this.sendNewMessage} text={'SEND'} />
+                    </KeyboardAvoidingView>
                 </View>
             </View>
         )

@@ -6,69 +6,44 @@ import passport from 'passport'
 require('../../config/passport')(passport)
 passport.authenticate('jwt', { session: false})
 var jwt = require('jsonwebtoken')
-
+import { login } from './auth'
 console.log(`\n---> running wss on ${socket}  <---\n`)
  
 wss.on('connection', function connection(ws) {
 
-  let user = null
-
   ws.on('message', async function incoming(data) {
-    let response
+    
+    // Parse Message Data
     data = JSON.parse(data)
 
-    // Validate Facebook Auth Token and get user data
-    if(data.auth.platform === 'facebook'){
-      console.log("access token: ", data.auth.accessToken)
-      user = await User.findOne({'facebook.access_token': data.auth.accessToken})
-
-      console.log(user)
-      if(user){
-        user = user.toJSON()
-        ws.id = user._id
-        delete user.password; delete user.__v; delete user.iat; delete user.facebook.id;
-        delete user.facebook.access_token; delete user.facebook.refresh_token; delete user.facebook.email
+    // Login logic for initial logins and reconnecting
+    if(data.type === 'initial-login'){ 
+      let authorized =  await login({wss,ws,data}).catch(e => console.log(e, 'error from socket auth message "login()"'))
+      authorized.type = 'initial-login'
+      ws.send(JSON.stringify(authorized))
+    }
+    
+    if(data.type === 'chat'){
+      // Authenticate and get most current user data
+      let authorized = await login({wss,ws,data}).catch(e => console.log(e, 'error from socket auth message "login()"'))
+      let user = authorized.user
+      console.log({user})
+      // Now that we're authenticated we can send messages
+      // response code - first make sure theres a user
+      if(authorized.status === 200){
+        let response = data.message
+        console.log({MESSAGE: data.message})
+        response.avatar = user.avatar
+        response.type = "chat"
+        wss.clients.forEach( client => client.send(JSON.stringify(response)) )
       } else {
-        // TODO: SEND REQUEST TO FACEBOOK API FOR ACCESS TOKEN SIGNING.  THEN UPDATE THE USERS TOKENS IN THE DB
-      }
-      response = {
-        user: user
-      }
-    }
-
-    // Validate Local Auth Token and get user data
-    if(data.auth.platform === 'local'){
-      // run local verify code here
-      token = data.auth.token
-      
-      user = await jwt.verify(token, secret)
-      //TODO: check these deletes make sure they work
-      if(user){
-        delete user.password
-        delete user.__v
-        delete user.iat
+        ws.send( JSON.stringify({
+          status: status_codes.RESOURCE_DOESNT_EXISTS,
+          message: 'error skt105: There seems to be an issue authenticating your login, please log in again to ensure propper functionality'
+        }) )
       }
     }
-
-    // Now that we're authenticated we can send messages
-    console.log("sending login", user)
-    if(user._id && data.type === 'login'){
-      response.user = user
-      response.type = login
-      ws.send(JSON.stringify(response))
-    }
-
-    if(response.user && data.type === 'chat'){
-      
-      response.data = data.message,
-      response.type = 'chat'
-
-      wss.clients.forEach(client => {
-          client.send(JSON.stringify(response))
-      })
-
-    }
-
   })
 
 })
+

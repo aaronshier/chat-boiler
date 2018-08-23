@@ -2,27 +2,27 @@ var mongoose = require('mongoose')
 var bcrypt = require('bcrypt-nodejs')
 
 var userSchema = mongoose.Schema({
-  name: String,
-  email: {
-      type: String,
-      unique: true
-  },
-  password: String,
-  facebook: {
-    id: String,
-    access_token: String,
-    refresh_token: String,
-    email: String,
-    name: String,
-    username: String,
     avatar: String,
-  },
-  google: {
-      id: String,
-      token: String,
-      email: String,
-      name: String,
-  }
+    name: String,
+    email: {
+        type: String,
+        unique: true
+    },
+    password: String,
+    facebook: {
+        id: String,
+        access_token: String,
+        refresh_token: String,
+        email: String,
+        name: String,
+        username: String,
+    },
+    google: {
+        id: String,
+        token: String,
+        email: String,
+        name: String,
+    }
 })
 
 userSchema.pre('save', function (next) {

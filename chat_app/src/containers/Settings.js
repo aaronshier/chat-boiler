@@ -21,7 +21,7 @@ class Settings extends Component {
                         Profile
                     </Text>
                     <TouchableOpacity>
-                        <Btn text={'logout'} styles={{alignSelf: 'center'}} onPress={this.props.screenProps.handleSignOut} />
+                        <Btn text={'logout'} styles={{borderRadius: 20, marginTop: 10, alignSelf: 'center'}} onPress={this.props.screenProps.handleSignOut} />
                     </TouchableOpacity>
                 </View>
             </View>
