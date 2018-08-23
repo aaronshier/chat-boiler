@@ -9,7 +9,7 @@ import { server, secret, status_codes } from '../../config'
 
 let router = express.Router()
 
-router.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }))
+router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'user_friends', 'user_location']}));
 
 router.get('/auth/facebook/callback', passport.authenticate('facebook', {
   successRedirect: `${server}/`,

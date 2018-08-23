@@ -11,41 +11,39 @@ console.log(`\n---> running wss on ${socket}  <---\n`)
  
 wss.on('connection', function connection(ws) {
 
-  let user = null
-
   ws.on('message', async function incoming(data) {
-    let response
+    
+    // Parse Message Data
     data = JSON.parse(data)
 
-    
-    if(data.type === 'login') await login({wss,ws,data})
-
-    // Now that we're authenticated we can send messages
-    // response code - first make sure theres a user
-    if(data.type === 'chat'){
-        response.user = {
-          _id: user._id,
-          avatar: null,
-          username: null,
-        }
-
-      // If its a chat message
-      if(data.type === 'chat'){
-        
-        response.status = status_codes.OK
-        response.message = data.message,
-        response.type = 'chat'
-
-        wss.clients.forEach(client => {
-            client.send(JSON.stringify(response))
-        })
-
-      }
-      
-    } else {
-      ws.send(JSON.stringify({status: status_codes.RESOURCE_DOESNT_EXISTS, message: 'error skt105: There seems to be an issue authenticating your login, please log in again to ensure functionality'}))
+    // Login logic for initial logins and reconnecting
+    if(data.type === 'initial-login'){ 
+      let authorized =  await login({wss,ws,data}).catch(e => console.log(e, 'error from socket auth message "login()"'))
+      authorized.type = 'initial-login'
+      ws.send(JSON.stringify(authorized))
     }
-
+    
+    if(data.type === 'chat'){
+      // Authenticate and get most current user data
+      let authorized = await login({wss,ws,data}).catch(e => console.log(e, 'error from socket auth message "login()"'))
+      let user = authorized.user
+      console.log({user})
+      // Now that we're authenticated we can send messages
+      // response code - first make sure theres a user
+      if(authorized.status === 200){
+        let response = data.message
+        console.log({MESSAGE: data.message})
+        response.avatar = user.avatar
+        response.type = "chat"
+        wss.clients.forEach( client => client.send(JSON.stringify(response)) )
+      } else {
+        ws.send( JSON.stringify({
+          status: status_codes.RESOURCE_DOESNT_EXISTS,
+          message: 'error skt105: There seems to be an issue authenticating your login, please log in again to ensure propper functionality'
+        }) )
+      }
+    }
   })
 
 })
+

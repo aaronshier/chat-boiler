@@ -158,7 +158,7 @@ module.exports = function(passport) {
           newUser.facebook.refresh_token = refreshToken
           newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName
           newUser.facebook.email = (profile.emails[0].value || '').toLowerCase()
-          newUser.facebook.avatar = `http://graph.facebook.com/${profile.id}/picture?height=600&width=600`
+          newUser.avatar = `https://graph.facebook.com/v2.6/${profile.id}/picture?height=600&width=600`
 
           newUser.save(function(err) {
             if (err)
@@ -181,12 +181,13 @@ module.exports = function(passport) {
           return done(null, user)
         } else {
           var newUser = new User()
+          console.log({profile: profile.photos})
           newUser.facebook.id = profile.id
           newUser.facebook.access_token = accessToken
           newUser.facebook.refresh_token = refreshToken
           newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName
           newUser.facebook.email = (profile.emails[0].value || '').toLowerCase()
-          newUser.facebook.avatar = `http://graph.facebook.com/${profile.id}/picture?height=600&width=600`
+          newUser.avatar = `https://graph.facebook.com/v2.6/${profile.id}/picture?height=600&width=600`
 
           newUser.save(function(err) {
             if (err)

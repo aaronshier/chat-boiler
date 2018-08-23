@@ -13,20 +13,8 @@ class Home extends Component<{}> {
     
         this.state = {
         }
-        this.socket = this.props.redux.socket
     }
     async componentWillMount(){
-        let auth = await checkForAllTokens()
-        this.socket.send(JSON.stringify({
-                type: 'login',
-                user: this.props.redux.user,
-                auth
-            })
-        )
-        this.socket.onmessage = (e) => {
-            alert(JSON.stringify(e))
-            //let message = JSON.parse(e)
-        }
     }
     render() {
         return (

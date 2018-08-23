@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { ActionCreators } from '../actions/index'
+import { ActionCreators } from '../actions'
 import { server, wsport } from '../config'
 import { Socket } from '../services'
 import { checkForAllTokens } from './auth'
@@ -16,8 +16,22 @@ class SocketInitiator extends Component<{}> {
         }
 
         let socket = new WebSocket(wsport);
-    
-        socket.onopen = () => { 
+        
+        // Initiate initial login
+        socket.onopen = async () => { 
+            let auth = await checkForAllTokens()
+            socket.send(JSON.stringify({
+                    type: 'initial-login',
+                    user: this.props.redux.user,
+                    auth
+                })
+            )
+            // Check for initial-login response
+            socket.onmessage = function incoming(m) {
+                let data = JSON.parse(m.data)
+                if(data.type === 'initial-login') alert('initial login!') // handle initial login methods here
+            }
+            
             this.setState({connected:true})
             this.props.loadSocket(socket)
             this.props.socketOpen(true)
@@ -26,9 +40,9 @@ class SocketInitiator extends Component<{}> {
     render() { return null }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(redux) {
     return {
-        state
+        redux
     }
 }
 
