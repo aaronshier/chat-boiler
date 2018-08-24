@@ -29,7 +29,7 @@ class SocketInitiator extends Component<{}> {
             // Check for initial-login response
             socket.onmessage = function incoming(m) {
                 let data = JSON.parse(m.data)
-                if(data.type === 'initial-login') alert('initial login!') // handle initial login methods here
+                if(data.type === 'initial-login') console.log('initial login!') // handle initial login methods here
             }
             
             this.setState({connected:true})

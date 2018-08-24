@@ -8,6 +8,11 @@ import TxtInput from '../components/TxtInput'
 import Btn from '../components/Btn'
 import Header from '../components/Header'
 
+import {
+    CachedImage,
+    ImageCacheManager
+} from 'react-native-cached-image';
+
 import { checkForAllTokens } from '../components/auth'
 
 class Chat extends Component<{}> {
@@ -28,8 +33,17 @@ class Chat extends Component<{}> {
 
     }
 
-    recieveMessage = (m) => {
+    recieveMessage = async (m) => {
         let data = JSON.parse(m.data)
+        const cacheManager = ImageCacheManager({})
+
+        if(this.props.redux.user.avatar){
+            console.log('avatar found for user', data)
+
+            const cache = await cacheManager.downloadAndCacheUrl(data.avatar)
+
+            console.log({cache})
+        }
         this.props.incomingGlobalChat(data)
     }
 
@@ -55,15 +69,15 @@ class Chat extends Component<{}> {
                 <View style={{flex: 1}}>
                     <ScrollView style={{flex:1}}>
                         { this.props.redux.global_messages && this.props.redux.global_messages.map( (d, i) => (
-                        <View style={{
+                        <View key={i} style={{
                             paddingHorizontal: 10,
                             paddingVertical: 5
                         }}>
-                            <View key={i} style={{
+                            <View style={{
                                 flexDirection: 'row',
                                 alignItems: 'center'}}>
                                 { 
-                                    d.avatar && <Image style={{
+                                    d.avatar && <CachedImage style={{
                                         borderRadius: 13,
                                         marginRight: 10,
                                         height: 26,
@@ -76,7 +90,7 @@ class Chat extends Component<{}> {
                         </View>
                         )) }
                     </ScrollView>
-                    <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50} enabled>
+                    <KeyboardAvoidingView behavior="padding"  enabled>
                         <TxtInput 
                             styles={{alignSelf: 'center', width: '100%', marginTop: 10}}
                             id={'message'}
