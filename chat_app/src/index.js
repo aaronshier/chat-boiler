@@ -54,7 +54,7 @@ class index extends Component<{}> {
     return (
         <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}} >
           <StatusBar
-            backgroundColor="blue"
+            backgroundColor="#ccc"
             barStyle="dark-content"
           />
           {

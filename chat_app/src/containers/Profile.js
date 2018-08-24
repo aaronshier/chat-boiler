@@ -7,6 +7,9 @@ import ExampleActionSheet from '../components/ExampleActionSheet';
 
 import Icon from 'react-native-vector-icons/FontAwesome'
 
+import {
+    CachedImage,
+} from 'react-native-cached-image';
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -21,9 +24,8 @@ class Profile extends Component {
             <View style={{flex: 1, backgroundColor: '#fff'}}>
                 <View style={styles.fillAndCenter}>
                 { this.props.redux.user.avatar ?
-                    <Image 
+                    <CachedImage 
                         style={{
-                            backgroundColor: '#111',
                             alignSelf: 'center',
                             width: 200,
                             height: 200,

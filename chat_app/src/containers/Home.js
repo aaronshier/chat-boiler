@@ -7,6 +7,12 @@ import { ActionCreators } from '../actions/index'
 import TxtInput from '../components/TxtInput'
 import { checkForAllTokens } from '../components/auth'
 
+import {
+    CachedImage,
+    ImageCacheManager,
+    ImageCacheProvider
+} from 'react-native-cached-image';
+
 class Home extends Component<{}> {
     constructor(props){
         super(props)
@@ -15,11 +21,31 @@ class Home extends Component<{}> {
         }
     }
     async componentWillMount(){
+        const manager = ImageCacheManager({})
+        if(this.props.redux.user.avatar){
+            const image = await manager.downloadAndCacheUrl(this.props.redux.user.avatar)
+            this.setState({profile_image: image})
+        }
     }
     render() {
         return (
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <Icon name="home" style={{alignSelf: 'center', fontSize: 60}}/>
+            
+                { this.state.profile_image  ? 
+                    <CachedImage
+                        source={{uri: this.props.redux.user.avatar }}
+                        defaultSource={{uri: this.props.redux.user.avatar }}
+                        style={{
+                            backgroundColor: '#ccc',
+                            height: 100,
+                            width: 100,
+                            borderRadius: 50
+                        }}
+                    />
+                    :
+                    <Icon name="home" style={{alignSelf: 'center', fontSize: 60}}/>
+                 }
+                
                 <Text style={{textAlign: 'center', fontSize: 30}}>
                     Home
                 </Text>
