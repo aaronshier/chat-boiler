@@ -35,12 +35,10 @@ class index extends Component<{}> {
     const tokens = await checkForAllTokens().catch(e => console.log('there was an error in index.js/checkForAllTokens()', e))
     if(tokens) response = await loginWithAuthTokens(tokens)
     if(response.login){
-      console.log('login happened')
       await this.setState({ credentials: response, loaded: true  })
       await this.props.userData(response)
       SplashScreen.hide()
     } else {
-      console.log('login didnt happen', response)
       await this.setState({loaded: true})
       SplashScreen.hide()
     }

@@ -6,23 +6,20 @@ import passport from 'passport'
 require('../../config/passport')(passport)
 passport.authenticate('jwt', { session: false})
 var jwt = require('jsonwebtoken')
-import { login } from './auth'
-console.log(`\n---> running wss on ${socket}  <---\n`)
+import { login } from './auth'  
  
 wss.on('connection', function connection(ws) {
-
   ws.on('message', async function incoming(data) {
-    
     // Parse Message Data
     data = JSON.parse(data)
-
+    console.log('data coming!')
+    console.log({data})
     // Login logic for initial logins and reconnecting
     if(data.type === 'initial-login'){ 
       let authorized =  await login({wss,ws,data}).catch(e => console.log(e, 'error from socket auth message "login()"'))
       authorized.type = 'initial-login'
       ws.send(JSON.stringify(authorized))
     }
-    
     if(data.type === 'chat'){
       // Authenticate and get most current user data
       let authorized = await login({wss,ws,data}).catch(e => console.log(e, 'error from socket auth message "login()"'))
@@ -33,7 +30,7 @@ wss.on('connection', function connection(ws) {
       if(authorized.status === 200){
         let response = data.message
         console.log({MESSAGE: data.message})
-        response.avatar = user.avatar
+        response.avatar = user.avatar ? user.avatar : false
         response.type = "chat"
         wss.clients.forEach( client => client.send(JSON.stringify(response)) )
       } else {
@@ -44,6 +41,5 @@ wss.on('connection', function connection(ws) {
       }
     }
   })
-
 })
 

@@ -33,7 +33,8 @@ class Profile extends Component {
                             resizeMode: 'contain'
                         }}
                         source={{uri: this.props.redux.user.avatar}} />
-                    :    <Icon name="user" style={{alignSelf: 'center', fontSize: 60}}/>
+                    :
+                    <Icon name="user" style={{alignSelf: 'center', fontSize: 60}}/>
                 }
                     <Text style={{textAlign: 'center', fontSize: 30}}>
                         Profile

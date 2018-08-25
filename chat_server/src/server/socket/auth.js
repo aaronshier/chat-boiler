@@ -1,6 +1,8 @@
 import { server, secret, status_codes, facebookAuth, socket } from '../../config'
 import User from '../models/user'
 
+var jwt = require('jsonwebtoken')
+
 export const login = async ({wss, ws, data}) => {
     let user, response
     // Validate Facebook Auth Token and get user data
