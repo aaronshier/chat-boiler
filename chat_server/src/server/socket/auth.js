@@ -6,7 +6,7 @@ var jwt = require('jsonwebtoken')
 export const login = async ({wss, ws, data}) => {
     let user, response
     // Validate Facebook Auth Token and get user data
-    if(data.auth.platform === 'facebook'){
+    if(data && data.auth && data.auth.platform === 'facebook'){
 
         // See if this token matches a profile already (save an api call)
         user = await User.findOne({'facebook.access_token': data.auth.accessToken})
@@ -58,6 +58,7 @@ export const login = async ({wss, ws, data}) => {
         let token = data.auth.token
         
         user = await jwt.verify(token, secret)
+        
         //TODO: check these deletes make sure they work
         if(user){
             delete user.password

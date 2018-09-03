@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import FBCustomLoginButton from '../components/FBSDK/FBCustomLoginButton'
 import { ActionCreators } from '../actions/index'
-import Btn from '../components/Btn'
+import Btn from '../components/UI/Btn'
+import SlideUpMessage from '../components/UI/SlideUpMessage'
 import TxtInput from '../components/TxtInput'
 import { checkForAllTokens, loginWithAuthTokens } from '../components/auth'
 import { server, prefix, status_codes } from '../config'
@@ -18,12 +19,12 @@ class LoginPage extends Component<{}> {
         this.state = {
             email: '',
             password: '',
+            sending: false
         }
     }
     
     handleLoginResponse = (response) => {
-        if(response.login){
-            console.log({response})
+        if(response && response.login){
             this.props.screenProps.handleLogin(response)
         }
     }
@@ -36,6 +37,7 @@ class LoginPage extends Component<{}> {
 
     handleLocalLoginSubmission = async () => {
         if(this.state.email && this.state.password){
+            this.setState({sending: true})
             let login = await fetch(`${server}/api/mobile/login`, {
                 method: 'POST',
                 headers: {
@@ -44,11 +46,20 @@ class LoginPage extends Component<{}> {
                 },
                 body: JSON.stringify(this.state)
             }).then(response => response.json())
-            if(login.status < 300)
-            await AsyncStorage.setItem(`@${prefix}:jwt`, login.token);
-            this.props.screenProps.handleLogin(login)
+            
+            this.setState({sending: false})
+            if(login.status === status_codes.OK){
+                await AsyncStorage.setItem(`@${prefix}:jwt`, login.token);
+                await this.setState({sending: false})
+                this.props.screenProps.handleLogin(login.user)
+            } else {
+                console.log(login)
+                this._error.openMessage(login.error)
+            }
+
         }
     }
+    
     render() {
         return (
             <SafeAreaView style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -60,7 +71,7 @@ class LoginPage extends Component<{}> {
                     onChange={this.handleTextInput}
                     styles={{marginBottom: 10}}
                     autoCapitalize={'none'}
-                    />
+                />
                 <TxtInput
                     id={"password"}
                     onChange={this.handleTextInput}
@@ -70,6 +81,7 @@ class LoginPage extends Component<{}> {
                 />
                 <Btn
                     text={'Login with Email'}
+                    loading={this.state.sending}
                     iconFont={'envelope'}
                     styles={{marginBottom: 10}}
                     onPress={this.handleLocalLoginSubmission}
@@ -78,9 +90,11 @@ class LoginPage extends Component<{}> {
                 <Btn
                     text={'Sign Up'}
                     iconFont={'sign-in'}
-                    styles={{marginTop: 10, color: '#fff'}}
+                    dismissKeyboardOnPress={true}
+                    styles={{marginTop: 10, color: '#000', backgroundColor: 'transparent'}}
                     onPress={()=>this.props.navigation.navigate('SignupPage')}
                 />
+                <SlideUpMessage ref={ref =>this._error = ref} />
             </SafeAreaView>
         )
     }

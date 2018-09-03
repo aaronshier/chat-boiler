@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -7,14 +7,9 @@ import { ActionCreators } from '../actions/index'
 import Header from '../components/Header'
 import ChatRoomMessages from '../components/chat/ChatRoomMessages'
 import MessageInputBar from '../components/chat/MessageInputBar'
-
-import {
-    CachedImage,
-    ImageCacheManager
-} from 'react-native-cached-image';
+import SlideUpMessage from '../components/UI/SlideUpMessage'
 
 import { checkForAllTokens } from '../components/auth'
-const cacheManager = ImageCacheManager({})
 
 class Chat extends Component<{}> {
 
@@ -22,13 +17,16 @@ class Chat extends Component<{}> {
         super(props)
     
         this.state = {
+            message: 'Anything you want!',
+            open_message: false
         }
         this.socket = this.props.redux.socket
     }
 
     formatMessage = (message, auth) => {
+        message.username = this.props.redux.user.username
         return JSON.stringify({
-            type: 'chat',
+            type: 'global-chat',
             message,
             auth
         })
@@ -37,7 +35,13 @@ class Chat extends Component<{}> {
     sendNewMessage = async (message) => {
         let auth = await checkForAllTokens()
         let msg = this.formatMessage(message, auth)
+        msg.username = this.props.redux.user.username
         await this.socket.send(msg)
+    }
+
+    openme = () => {
+        console.log({SlideUpMessage})
+        SlideUpMessage.openMessage()
     }
 
     render() {

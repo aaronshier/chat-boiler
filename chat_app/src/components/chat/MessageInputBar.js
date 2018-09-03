@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import TxtInput from '../TxtInput'
-import Btn from '../Btn'
+import Btn from '../UI/Btn'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 //import Icon from 'react-native-vector-icons/FontAwesome'

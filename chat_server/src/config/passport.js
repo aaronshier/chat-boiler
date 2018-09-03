@@ -48,21 +48,21 @@ module.exports = function(passport) {
         if (err)
             return done(err)
         if (user) {
-          console.log({'signupMessage': 'That email is already taken.'})
-          return done(null, false, {'signupMessage': 'That email is already taken.'})
+          return done(null, false, 'That email is already taken.')
         } else {
           const localClear = true
           User.findOne({ 'facebook.email':  email }, function(err, user) {
             if (err)
                 return done(err)
             if (user) {
-              console.log({'signupMessage': 'That email is already taken with a facebook login.'})
-              return done(null, false, {'signupMessage': 'That email is already taken with a facebook login.'})
+              return done(null, false, 'That email is already taken with a facebook login.')
             } else {
               const facebookClear = true
               if(localClear && facebookClear){
                 var newUser = new User()
                 newUser.email = email.toLowerCase()
+                console.log({req: req.body.username})
+                newUser.username = req.body.username
                 newUser.password = password
                 newUser.save(function(err) {
                   if (err)

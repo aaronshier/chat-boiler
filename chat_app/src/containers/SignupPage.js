@@ -3,10 +3,12 @@ import { SafeAreaView, Text, StyleSheet } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import FBCustomLoginButton from '../components/FBSDK/FBCustomLoginButton'
+import FBSignUpUserName from '../components/FBSDK/FBSignUpUserName'
 import { ActionCreators } from '../actions/index'
 import TxtInput from '../components/TxtInput'
 import { AsyncStorage } from "react-native"
-import Btn from '../components/Btn'
+import Btn from '../components/UI/Btn'
+import SlideUpMessage from '../components/UI/SlideUpMessage'
 import { server, prefix, status_codes } from '../config'
 class LoginPage extends Component<{}> {
     
@@ -25,6 +27,7 @@ class LoginPage extends Component<{}> {
             [prop]: val
         })
     }
+
     handleSignUpSubmission = async () => {
         let signup = await fetch(`${server}/api/mobile/signup`, {
             method: 'POST',
@@ -42,16 +45,16 @@ class LoginPage extends Component<{}> {
             console.log(e, 'handleSignupSubmission had an error on signup page')
         })
 
-        console.log(signup)
         if(signup.status === status_codes.RESOURCE_CREATED){
             await AsyncStorage.setItem(`@${prefix}:jwt`, signup.token);
-            this.props.screenProps.handleLogin({token: signup.token})
+            this.props.screenProps.handleLogin(signup.user)
         } else {
-            // TODO: Run error message component here
+            this.__error.openMessage(signup.message || 'There seems to have been an error', 'error')
         }
     }
-    handleLoginResponse = (response) => {
-        this.props.screenProps.handleLogin(response)
+
+    handleFacebookSignupResponse = (response) => {
+        this.__FBSignUpUserName.open(response)
     }
     
     render() {
@@ -65,6 +68,14 @@ class LoginPage extends Component<{}> {
                         onChange={this.handleTextInput}
                         styles={{marginBottom: 10}}
                         autoCapitalize={'none'}
+                        />
+                    <TxtInput 
+                        id={"username"}
+                        handleInput={this.handleTextInput}
+                        placeholder={'Username'}
+                        onChange={this.handleTextInput}
+                        styles={{marginBottom: 10}}
+                        autoCapitalize={'words'}
                         />
                     <TxtInput
                         id={"password"}
@@ -86,13 +97,18 @@ class LoginPage extends Component<{}> {
                         styles={{marginBottom: 10}}
                         onPress={this.handleSignUpSubmission}
                     />
-                    <FBCustomLoginButton handleLoginResult={this.handleLoginResponse} text={"Sign Up With Facebook"}/>
+                    <FBCustomLoginButton handleLoginResult={this.handleFacebookSignupResponse} text={"Sign Up With Facebook"}/>
                     <Btn
                         text={'Back to Login Page'}
                         iconFont={'sign-in'}
                         styles={{marginTop: 10, backgroundColor: 'transparent', color: '#000'}}
                         onPress={()=>this.props.navigation.navigate('LoginPage')}
                     />
+                    <FBSignUpUserName
+                        finishSignUpAndLogin={this.props.screenProps.handleLogin}
+                        ref={ref => (this.__FBSignUpUserName = ref)} />
+                    <SlideUpMessage 
+                        ref={ref => (this.__error = ref)} />
             </SafeAreaView>
         )
     }

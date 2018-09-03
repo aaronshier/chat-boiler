@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { ActionCreators } from '../actions/index'
-import Btn from '../components/Btn'
+import Btn from '../components/UI/Btn'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -21,7 +21,13 @@ class Settings extends Component {
                         Profile
                     </Text>
                     <TouchableOpacity>
-                        <Btn text={'logout'} styles={{borderRadius: 20, marginTop: 10, alignSelf: 'center'}} onPress={this.props.screenProps.handleSignOut} />
+                        <Btn text={'logout'} styles={{borderRadius: 20, marginTop: 10, alignSelf: 'center'}} onPress={
+                            async ()=>{
+                                await this.props.redux.socket.close()
+                                await this.props.userData({})
+                                this.props.screenProps.handleSignOut()
+                            }
+                        } />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -29,9 +35,9 @@ class Settings extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(redux) {
     return {
-        state
+        redux
     }
 }
 

@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, Image, Dimensions } from 'react-native'
+import { View, Text, FlatList, Dimensions } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 //import Icon from 'react-native-vector-icons/FontAwesome'
 import { ActionCreators } from '../../actions'
 
 import {
-    CachedImage,
-    ImageCacheManager
+    CachedImage as Image,
 } from 'react-native-cached-image';
 
 class ChatRoomMessages extends Component<{}> {
@@ -27,11 +26,11 @@ class ChatRoomMessages extends Component<{}> {
                             <View style={{paddingHorizontal: 6}}>
                             { // The avatar logic
                                 item.avatar ?
-                                    <CachedImage style={{
+                                    <Image style={{
                                         borderRadius: 13,
                                         height: 26,
                                         width: 26,
-                                        marginTop:5,
+                                        marginTop: 3.5,
                                         overflow: 'hidden',
                                         resizeMode: 'cover'}}
                                         resizeMode="contain"
@@ -39,7 +38,7 @@ class ChatRoomMessages extends Component<{}> {
                                         source={{uri: item.avatar}} />
                                 : 
                                 <Image
-                                    style={{height: 26, width: 26}}
+                                    style={{height: 26, marginTop: 3.5, width: 26}}
                                     resizeMode="contain"
                                     source={require('../../images/profiletemp.png')}
                                     onLoad={()=>loaded = true}
@@ -47,14 +46,14 @@ class ChatRoomMessages extends Component<{}> {
                             }
                             </View>
                             <View>
-                                <Text style={{ alignSelf: self ? 'flex-end' : 'flex-start', fontSize: 7,marginVertical: 3}}>USER ID: {item.user_id}</Text>
+                                <Text style={{ alignSelf: self ? 'flex-end' : 'flex-start', fontSize: 7,marginVertical: 3}}>{item.username}</Text>
                                 <View style={{
                                         alignSelf: self ? 'flex-end' : 'flex-start',
                                         backgroundColor: '#0af',
-                                        borderRadius: 20,
+                                        borderRadius: 16,
                                         overflow: 'hidden',
                                         paddingHorizontal: 15,
-                                        paddingVertical: 10,
+                                        paddingVertical: 7,
                                         marginBottom: 10,
                                         maxWidth: Dimensions.get('screen').width - 48
                                 }}>

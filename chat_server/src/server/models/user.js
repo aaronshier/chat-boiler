@@ -4,6 +4,10 @@ var bcrypt = require('bcrypt-nodejs')
 var userSchema = mongoose.Schema({
     avatar: String,
     name: String,
+    username: {
+        type: String,
+        unique: true
+    },
     email: {
         type: String,
         unique: true
@@ -52,10 +56,10 @@ userSchema.methods.validPassword = function(password) {
 userSchema.methods.comparePasswordMobile = function (passw, cb) {
   bcrypt.compare(passw, this.password, function (err, isMatch) {
       if (err) {
-          return cb(err);
+          return cb(err)
       }
-      cb(null, isMatch);
-  });
-};
+      cb(null, isMatch)
+  })
+}
 
 module.exports = mongoose.model('User', userSchema)

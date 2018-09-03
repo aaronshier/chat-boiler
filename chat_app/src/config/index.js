@@ -1,7 +1,8 @@
 const port = '8000'
 export { port }
-export const wsport = 'ws://192.168.1.19:8001'
-export const server = `http://192.168.1.19${port && ':'+port}`
+const ip = '192.168.1.19'
+export const wsport = `ws://${ip}:8001`
+export const server = `http://${ip}${port && ':'+port}`
 export const prefix = 'chat_app'
 export const status_codes = {
     OK: 200,
