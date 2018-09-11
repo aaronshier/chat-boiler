@@ -5,7 +5,7 @@ var chatSchema = mongoose.Schema({
     chaticon: String,
     mention: String,
     message: String,
-    username: { type: String, lowercase: true, trim: true, unique:true },
+    username: String,
     user_id: String,
 })
 module.exports = mongoose.model('Chat', chatSchema)

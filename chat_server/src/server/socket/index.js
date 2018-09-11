@@ -1,11 +1,16 @@
 import { server, secret, status_codes, facebookAuth, socket } from '../../config'
+
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: socket });
+
 const User = require('../models/user')
+var jwt = require('jsonwebtoken')
+
 import passport from 'passport'
+
 require('../../config/passport')(passport)
 passport.authenticate('jwt', { session: false})
-var jwt = require('jsonwebtoken')
+
 import { login } from './auth'  
 import { incomingChatService } from './chat'  
 
@@ -18,12 +23,11 @@ setInterval(() => {
 }, 1000 * 60 * 1 /*one minute interval*/)
 
 wss.on('connection', function connection(ws) {
-  console.log('connection made!')
   ws.on('message', async function incoming(data) {
+    console.log('connection made!', data)
 
     // Parse Message Data
     data = JSON.parse(data)
-    
 
     // Login logic for initial logins and reconnecting
     if(data.type === 'initial-login'){ 
@@ -35,5 +39,6 @@ wss.on('connection', function connection(ws) {
 
     incomingChatService({data, ws, wss})
   })
+
 })
 

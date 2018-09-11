@@ -22,8 +22,9 @@ class SocketInitiator extends Component<{}> {
     componentDidMount(){
         this.connect()
     }
-    connect = () => {
-        
+    connect = async () => {
+        await this.props.loadSocket({})
+        console.log('ATTEMPTING SOCKET CONNECTION to ' + wsport)
         let socket = new WebSocket(wsport);
         // Initiate initial login
         socket.onopen = async () => { 
@@ -71,13 +72,16 @@ class SocketInitiator extends Component<{}> {
         }
 
         socket.onclose = async () => {
-            //reconnect = setTimeout(t => this.connect(), 1000)
-            console.log('connection closed somehow! manage from the SocketManager component')
+            console.log('socket closed! reconnecting')
+            await this.props.loadSocket({})
+            reconnect = await setTimeout(t => this.connect(), 1000)
         }
         socket.onerror = async (e) => {
-            //reconnect = setTimeout(t => this.connect(), 1000)
-            console.error('Socket encountered error: ', err.message, 'Closing socket');
+            console.log('socket error! closing')
+            await socket.close()
+            //reconnect = await setTimeout(t => this.connect(), 1000)
         }
+
     }
 
     render() { return null }

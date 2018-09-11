@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { SafeAreaView, Text, AsyncStorage, TouchableOpacity, StyleSheet } from 'react-native'
+import { SafeAreaView, Text, AsyncStorage, Dimensions, TouchableOpacity, StyleSheet } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import FBCustomLoginButton from '../components/FBSDK/FBCustomLoginButton'
@@ -9,6 +9,8 @@ import SlideUpMessage from '../components/UI/SlideUpMessage'
 import TxtInput from '../components/TxtInput'
 import { checkForAllTokens, loginWithAuthTokens } from '../components/auth'
 import { server, prefix, status_codes } from '../config'
+
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 class LoginPage extends Component<{}> {
@@ -21,6 +23,7 @@ class LoginPage extends Component<{}> {
             password: '',
             sending: false
         }
+        this._timout
     }
     
     handleLoginResponse = (response) => {
@@ -30,6 +33,13 @@ class LoginPage extends Component<{}> {
     }
 
     handleTextInput = ({prop, val}) => {
+        clearTimeout(this._timout)
+        this._timout = setTimeout(()=>{
+            let creds = Object.assign({}, this.props.redux.login_creds)
+            creds[prop] = val
+            this.props.loginFields(creds)
+        }, 300)
+
         this.setState({
             [prop]: val
         })
@@ -53,8 +63,10 @@ class LoginPage extends Component<{}> {
                 await this.setState({sending: false})
                 this.props.screenProps.handleLogin(login.user)
             } else {
-                console.log(login)
-                this._error.openMessage(login.error)
+                this._error.openMessage(login.message)
+                // if(login.message === 'Authentication failed. User not found.'){
+                //     this.props.navigation.navigate('SignupPage')
+                // }
             }
 
         }
@@ -63,6 +75,7 @@ class LoginPage extends Component<{}> {
     render() {
         return (
             <SafeAreaView style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <Icon name="comments" style={styles.headerIcon}/>
                 <Text style={styles.title}>Login to ChatApp</Text>
                 <TxtInput 
                     id={"email"}
@@ -71,6 +84,8 @@ class LoginPage extends Component<{}> {
                     onChange={this.handleTextInput}
                     styles={{marginBottom: 10}}
                     autoCapitalize={'none'}
+                    value={this.props.redux.login_creds.email}
+                    keyboardType={'email-address'}
                 />
                 <TxtInput
                     id={"password"}
@@ -78,6 +93,8 @@ class LoginPage extends Component<{}> {
                     placeholder={'Password'}
                     styles={{marginBottom: 10}}
                     autoCapitalize={'none'}
+                    value={this.props.redux.login_creds.password}
+                    secureTextEntry={true}
                 />
                 <Btn
                     text={'Login with Email'}
@@ -100,9 +117,9 @@ class LoginPage extends Component<{}> {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(redux) {
     return {
-        state
+        redux
     }
 }
 
@@ -116,5 +133,12 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         marginBottom: 10
+    },
+    header: {
+        marginBottom: 20
+    },
+    headerIcon: {
+        fontSize: Dimensions.get('window').width / 2.5,
+        alignSelf: 'center'
     }
 })

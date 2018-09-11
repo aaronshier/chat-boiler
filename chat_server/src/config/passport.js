@@ -44,11 +44,16 @@ module.exports = function(passport) {
     passReqToCallback: true,
   }, (req, email, password, done) => {
     process.nextTick( function() {
-      User.findOne({ 'email':  email.toLowerCase() }, function(err, user) {
+      let query = { $or: [ { 'email':  email.toLowerCase() }, { 'username':  req.body.username.toLowerCase() } ] }
+      User.findOne(query, function(err, user) {
         if (err)
             return done(err)
         if (user) {
-          return done(null, false, 'That email is already taken.')
+          if(user.email == email.toLowerCase()){
+            return done(null, false, 'That email is already taken.')
+          } else {
+            return done(null, false, 'That username is already taken.')
+          }
         } else {
           const localClear = true
           User.findOne({ 'facebook.email':  email }, function(err, user) {
@@ -61,8 +66,7 @@ module.exports = function(passport) {
               if(localClear && facebookClear){
                 var newUser = new User()
                 newUser.email = email.toLowerCase()
-                console.log({req: req.body.username})
-                newUser.username = req.body.username
+                newUser.username = req.body.username.toLowerCase().replace((/  |\r\n|\n|\r/gm),"").replace(/ /g, '_');
                 newUser.password = password
                 newUser.save(function(err) {
                   if (err)

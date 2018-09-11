@@ -69,7 +69,7 @@ export default class SlideUpMessage extends React.Component {
           ...styles.wrap
         }}
       >
-        <Text style={styles.text}>{message}</Text>
+        <Text style={styles.text}>{message || 'error'}</Text>
       </Animated.View>
     );
   }

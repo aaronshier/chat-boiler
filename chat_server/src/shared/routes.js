@@ -12,12 +12,12 @@ const routes = [
 		component: Home,
 		title: 'SSR Home Page'
 	},
-	{
-		path: '/trans',
-		exact: true,
-		component: Transitions,
-		title: 'Transitions Test'
-	},
+	// {
+	// 	path: '/trans',
+	// 	exact: true,
+	// 	component: Transitions,
+	// 	title: 'Transitions Test'
+	// },
 	{
 		path: '/login',
 		exact: true,

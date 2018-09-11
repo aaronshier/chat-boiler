@@ -4,12 +4,8 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
-import { View, Text, StatusBar, SafeAreaView, StyleSheet } from 'react-native'
-
-import { loginToServerWithFacebook } from './src/components/auth/facebook'
 
 import MainApp from './src'
-import Login from './src/containers/Login'
 
 import reducers from './src/reducers'
 
@@ -20,7 +16,7 @@ function configureStore(initialState) {
     applyMiddleware(
       thunkMiddleware,
       loggerMiddleware
-      )
+    )
   )
   return createStore(reducers, initialState, enhancer)
 }

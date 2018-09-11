@@ -51,16 +51,20 @@ class Btn extends Component<{}> {
             }
         
         })
-
-        console.log({rotate: this.spinValue + 'deg'})
         return (
-             <TouchableOpacity onPress={()=>{
+             <TouchableOpacity
+                onPress={()=>{
                     this.props.dismissKeyboardOnPress && Keyboard.dismiss()
                     this.props.onPress()
-                 }} style={[ styles.wrap, this.props.styles ]}>
+                 }} style={[
+                     styles.wrap,
+                     this.props.styles,
+                     { opacity: this.props.disable ? .2 : 1}]}>
                  { this.props.iconFont && <Icon name={this.props.iconFont} style={[styles.text, {marginRight: 10, fontSize: 20, color: this.props.styles && this.props.styles.color ? this.props.styles.color : '#fff'}]}/> }
                 { !this.props.loading ? 
-                    <Text style={[styles.text, {color: this.props.styles && this.props.styles.color ? this.props.styles.color : '#fff'}]}>{this.props.text}</Text> 
+                    <Text style={[styles.text, {color: this.props.styles && this.props.styles.color ? this.props.styles.color : '#fff'}]}>
+                        {this.props.text}
+                    </Text> 
                     : 
                     <RotatingIcon name={'spinner'} style={[
                         styles.text,

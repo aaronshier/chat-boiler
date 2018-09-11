@@ -49,10 +49,8 @@ export const loginWithLocalToken = async (info) => {
                 login = false
                 return false
             }
-      }).catch(e => console.log('there was an error in loginWithLocalToken', e))
+        }).catch(e => console.log('there was an error in loginWithLocalToken', e))
     }
     
     return user
-
-    return {statususer}
 }

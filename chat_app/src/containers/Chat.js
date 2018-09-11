@@ -20,7 +20,6 @@ class Chat extends Component<{}> {
             message: 'Anything you want!',
             open_message: false
         }
-        this.socket = this.props.redux.socket
     }
 
     formatMessage = (message, auth) => {
@@ -36,12 +35,7 @@ class Chat extends Component<{}> {
         let auth = await checkForAllTokens()
         let msg = this.formatMessage(message, auth)
         msg.username = this.props.redux.user.username
-        await this.socket.send(msg)
-    }
-
-    openme = () => {
-        console.log({SlideUpMessage})
-        SlideUpMessage.openMessage()
+        await this.props.redux.socket.send(msg)
     }
 
     render() {

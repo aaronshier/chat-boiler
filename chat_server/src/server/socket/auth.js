@@ -26,7 +26,7 @@ export const login = async ({wss, ws, data}) => {
             
         } else if (data.auth.accessToken){
             
-            //hmmmmm, looks like your facebook token and your database token are different, 
+            // hmmmmm, looks like your facebook token and your database token are different, 
             // console.log('hmmmmm, looks like your facebook token and your database token are different, lets run the update logic \n', data.auth.accessToken, '\n \n')
             
             // Validate user with token using passport-facebook-token endpoint

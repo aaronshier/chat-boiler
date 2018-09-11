@@ -47,7 +47,7 @@ class Home extends Component<{}> {
                  }
                 
                 <Text style={{textAlign: 'center', fontSize: 30}}>
-                    Home
+                    { this.props.redux.user.username ? `@${this.props.redux.user.username}` : 'Home'}
                 </Text>
             </View>
         )

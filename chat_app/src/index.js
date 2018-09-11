@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { ActionCreators } from './actions/index'
 import { View, Text, AsyncStorage, StatusBar, TouchableOpacity } from 'react-native'
-import { prefix } from './config'
+import { prefix, server } from './config'
 import { loginToServerWithFacebook, loginWithAuthTokens, checkForAllTokens, logOutAll } from './components/auth'
 import Login from './containers/Login'
 import AppRouter from './containers/AppRouter'
@@ -22,7 +22,7 @@ class index extends Component<{}> {
     }
   }
   handleLogin = async (result) => {
-    const login = await this.props.userData(result)
+    const login = await this.props.userData({result})
     this.setState({ credentials: result  })
   }
 
@@ -36,7 +36,6 @@ class index extends Component<{}> {
   }
   
   async componentWillMount(){
-    
     // Setup Login Response
     let response = false
 
@@ -45,7 +44,7 @@ class index extends Component<{}> {
 
     // If theres a token, login with the token (will refresh if needed)
     if(tokens) response = await loginWithAuthTokens(tokens)
-
+    
     // Check for response
     if(response && response.login){
       
@@ -53,7 +52,7 @@ class index extends Component<{}> {
       await this.setState({ credentials: response, loaded: true  })
       
       // Store user data from response
-      await this.props.userData(response)
+      await this.props.userData({...response, token: tokens.token})
       
       // Hide splash screen
       SplashScreen.hide()

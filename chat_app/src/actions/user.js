@@ -6,3 +6,10 @@ export function userData( userData ) {
 		payload: userData
 	}
 }
+
+export function loginFields( userData ) {
+	return {
+		type: types.USER_LOGIN_FIELDS,
+		payload: userData
+	}
+}

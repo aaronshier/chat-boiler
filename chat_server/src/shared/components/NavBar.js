@@ -9,10 +9,10 @@ import Button from '@material-ui/core/Button';
     url: '/',
     name: 'Home'
   },
-  {
-    url: '/trans',
-    name: 'Transitions'
-  },
+  // {
+  //   url: '/trans',
+  //   name: 'Transitions'
+  // },
   {
     url: '/login',
     name: 'Log In'

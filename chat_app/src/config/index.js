@@ -1,9 +1,10 @@
-const port = '8000'
+const port = false
 export { port }
-const ip = '192.168.1.19'
-export const wsport = `ws://${ip}:8001`
-export const server = `http://${ip}${port && ':'+port}`
+const ip = '192.168.0.106:8000'
+export const wsport = `ws://192.168.0.106:8001`
+export const server = `http://${ip}`
 export const prefix = 'chat_app'
+
 export const status_codes = {
     OK: 200,
     RESOURCE_CREATED: 201,
@@ -11,4 +12,13 @@ export const status_codes = {
     RESOURCE_ALREADY_EXISTS: 211,
     NOT_FOUND: 400,
     MISSING: 501
+}
+
+export const theme = {
+    primary: '#0af',
+    primary_light: '4bf',
+    primary_dark: '#0af',
+    secondary: '#0af',
+    secondary_light: '4bf',
+    secondary_dark: '#0af',
 }
