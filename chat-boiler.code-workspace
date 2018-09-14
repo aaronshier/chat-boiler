@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "chat_server"
+		},
+		{
+			"path": "chat_app"
+		}
+	],
+	"settings": {}
+}

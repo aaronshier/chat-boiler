@@ -19,6 +19,7 @@ class MessageInputBar extends Component<{}> {
             chaticon: 'finger'
         }
     }
+    
     render() {
         const offset = (Platform.OS === 'android') ? -200 : 0;
         return (

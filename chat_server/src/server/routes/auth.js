@@ -11,10 +11,17 @@ let router = express.Router()
 
 router.get('/facebook', passport.authenticate('facebook', { scope: ['email', 'user_friends', 'user_location']}));
 
-router.get('/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: `${server}/`,
-  failureRedirect: `${server}`,
-}))
+router.get('/facebook/callback',
+  passport.authenticate('facebook', {
+    failureRedirect: `${server}`,
+}), (req, res) => {
+  res.redirect('/');
+})
+
+// router.get('/facebook/callback',
+//   passport.authenticate('facebook', {
+//     failureRedirect: `${server}/#failing`,
+//     successRedirect: `${server}/#successing`}))
 
 router.post('/facebook/token',
   passport.authenticate('facebook-token'),
@@ -46,7 +53,6 @@ router.get('/google/callback', passport.authenticate('google', {
   successRedirect: '/',
   failureRedirect: '/'
 }))
-
 
 router.get('/logout', (req, res) => {
   req.logout()

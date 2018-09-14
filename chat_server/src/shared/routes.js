@@ -2,8 +2,8 @@ import Home from './containers/Home'
 import { fetchDemoData } from './services/outbound'
 import Login from './containers/Login'
 import Signup from './containers/Signup'
+import Profile from './containers/Profile'
 import TestApi from './containers/TestApi'
-import Transitions from './containers/Transitions'
 
 const routes = [
 	{
@@ -12,12 +12,6 @@ const routes = [
 		component: Home,
 		title: 'SSR Home Page'
 	},
-	// {
-	// 	path: '/trans',
-	// 	exact: true,
-	// 	component: Transitions,
-	// 	title: 'Transitions Test'
-	// },
 	{
 		path: '/login',
 		exact: true,
@@ -29,6 +23,12 @@ const routes = [
 		exact: true,
 		component: Signup,
 		title: 'Register for a HERMN Account'
+	},
+	{
+		path: '/profile',
+		exact: true,
+		component: Profile,
+		title: 'Your Account'
 	},
 	{
 		path: '/test/:id',

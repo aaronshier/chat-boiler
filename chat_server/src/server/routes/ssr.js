@@ -45,7 +45,7 @@ app.get('*', (req, res, next) => {
   	const store = createStore(reducers)
 
   	const userData = userStatus(req, res, next)
-  	? { user: req.user, loggedIn: true}
+  	? { ...req.user.toJSON()}
   	: { user: null, loggedIn: false}
 
 	promise.then( (data) => {

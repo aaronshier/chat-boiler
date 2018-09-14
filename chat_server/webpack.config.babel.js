@@ -72,7 +72,6 @@ if(production){
       filename: 'bundle.production.min.js',
       publicPath: '/'
     },
-    mode: "production",
     module: {
       rules: [
         { test: /\.(js)$/, exclude: /node_modules/, use: 'babel-loader' }
@@ -113,4 +112,5 @@ if(production){
     ]
   }
 }
+
 module.exports = [ browserConfig, serverConfig ]

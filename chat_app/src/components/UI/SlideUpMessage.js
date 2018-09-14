@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, Text, View, StyleSheet } from 'react-native';
+import { Animated, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default class SlideUpMessage extends React.Component {
   constructor(props){
@@ -63,24 +63,33 @@ export default class SlideUpMessage extends React.Component {
     return (
       <Animated.View                 // Special animatable View
         style={{
-          ...this.props.styles,
           opacity: opacity,  
           bottom: slidein,
-          ...styles.wrap
+          ...styles.outter
         }}
       >
-        <Text style={styles.text}>{message || 'error'}</Text>
+        <TouchableOpacity style={{
+          ...this.props.styles,
+          ...styles.wrap
+        }} onPress={this.closeMessage}>
+          <Text style={styles.text}>{message || 'error'}</Text>
+        </TouchableOpacity>
       </Animated.View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
+  outter: {
+    position: 'absolute',
+    zIndex: 99999,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   wrap:{
     backgroundColor: '#222',
     borderRadius: 10,
-    position: 'absolute',
-    zIndex: 99999,
     width: '90%',
     alignSelf: 'center',
     padding: 20
