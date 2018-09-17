@@ -32,7 +32,7 @@ class index extends Component<{}> {
       credentials: false,
       loaded : true,
       socket: false
-      })
+    })
   }
   
   async componentWillMount(){
@@ -52,7 +52,7 @@ class index extends Component<{}> {
       await this.setState({ credentials: response, loaded: true  })
       
       // Store user data from response
-      await this.props.userData({...response, token: tokens.token})
+      await this.props.userData({...response, token: tokens.token || response.token})
       
       // Hide splash screen
       SplashScreen.hide()

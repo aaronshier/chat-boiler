@@ -32,7 +32,7 @@ class TxtInput extends Component<{}> {
                         styles.input,
                         this.props.styles,
                         { 
-                            paddingLeft: this.props.styles.paddingLeft ? 
+                            paddingLeft: this.props.styles && this.props.styles.paddingLeft ? 
                                 this.props.styles.paddingLeft 
                             : 
                                 (this.props.icon ? 30 : 0)}

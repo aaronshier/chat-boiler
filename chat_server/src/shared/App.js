@@ -12,7 +12,8 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 class App extends Component {
 	constructor(props) {
-	  	super(props);
+		super(props)
+		  
 		let member
 		if (__isBrowser__){
 			member = window.__USER_DATA__
@@ -20,6 +21,7 @@ class App extends Component {
 		} else {
 			member = this.props.member
 		}
+		member.login = true
 		this.props.userData(member)
 	}
 
@@ -42,9 +44,9 @@ class App extends Component {
 	}
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(redux) {
     return {
-        state
+        redux
     };
 }
 

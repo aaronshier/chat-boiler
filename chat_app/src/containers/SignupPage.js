@@ -34,7 +34,7 @@ class LoginPage extends Component<{}> {
     }
 
     checkUserName = async () => {
-        return await fetch(`${server}/api/mobile/check-username`, {
+        return await fetch(`${server}/api/check-username`, {
             headers: {
                 'user-agent': 'Mozilla/4.0 MDN Example',
                 'content-type': 'application/json',

@@ -2,13 +2,24 @@
 
 import express from 'express'
 
+var mongoose = require('mongoose')
 import passport from 'passport'
 require('../../config/passport')(passport)
 passport.authenticate('jwt', { session: false})
 var jwt = require('jsonwebtoken')
 const { secret, status_codes } = require('../../config')
 const User = require('../models/user')
-let router = express.Router()
+const router = express.Router()
+
+const busboyBodyParser = require('busboy-body-parser')
+
+const Jimp = require("jimp");
+
+let Grid = require("gridfs-stream")
+	  Grid.mongo = mongoose.mongo
+
+let conn = mongoose.connection
+let gfs
 
 router.post('/signup', (req, res, next) => { 
 
@@ -27,12 +38,10 @@ router.post('/signup', (req, res, next) => {
 })
 
 router.post('/login', function(req, res) {
-    User.findOne({
-      email: req.body.email
-    }, function(err, user) {
+  let query = { $or: [ { 'email':  req.body.email.toLowerCase() }, { 'username':  req.body.username.toLowerCase() } ] }
+    User.findOne(query, (err, user) => {
       if (err) throw err
       if (!user) {
-        console.log('in the callback')
         res.status(status_codes.RESOURCE_DOESNT_EXISTS).send({status: status_codes.RESOURCE_DOESNT_EXISTS, message: 'Authentication failed. User not found.'})
       } else {
         // check if password matches
@@ -60,39 +69,6 @@ router.post('/login', function(req, res) {
 router.post('/auto-login',  passport.authenticate('jwt', { session: false}), async function(req, res) {
   res.json({status: 200, user: req.user})
 })
-
-router.post('/check-username', async function(req, res) {
-  console.log(req.body)
-  const username = req.body.username.toLowerCase().replace((/  |\r\n|\n|\r/gm),"")
-  console.log({username})
-  
-  const nameTaken = await User.findOne({
-    username
-  })
-  console.log(nameTaken)
-  res.json({status: 200, username, nameAvailable: nameTaken ? false : true })
-})
-
-router.post('/update-user',  passport.authenticate('jwt', { session: false}), async (req, res) => {
-  
-  const username = req.body.username.toLowerCase().replace((/  |\r\n|\n|\r/gm),"");
-  const uid = req.user._id
-  
-  const nameTaken = await User.findOne({
-    username
-  })
-  
-  if(!nameTaken){
-    let user = await User.findOne({_id: uid})
-    user.username = username
-    const userUpdated = await User.update({_id: req.user._id}, user)
-    res.json({status: status_codes.OK, username, update: userUpdated })
-  } else {
-    res.json({status: status_codes.RESOURCE_ALREADY_EXISTS, message: `The username "${username}" is already taken`})
-  }
-
-})
-
 
 module.exports = router
 

@@ -38,7 +38,6 @@ if(production){
       
     ]
   }
-
   serverConfig = {
     entry: ['babel-polyfill', './src/server/index.js'],
     target: 'node',
@@ -62,7 +61,6 @@ if(production){
       })
     ]
   }
-
 } else {
   console.log({production: false})
   browserConfig = {
@@ -72,7 +70,6 @@ if(production){
       filename: 'bundle.production.min.js',
       publicPath: '/'
     },
-    mode: "production",
     module: {
       rules: [
         { test: /\.(js)$/, exclude: /node_modules/, use: 'babel-loader' }
@@ -91,7 +88,6 @@ if(production){
       }),
     ]
   }
-
   serverConfig = {
     entry: ['babel-polyfill', './src/server/index.js'],
     target: 'node',
@@ -113,4 +109,5 @@ if(production){
     ]
   }
 }
+
 module.exports = [ browserConfig, serverConfig ]

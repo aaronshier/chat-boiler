@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { SafeAreaView, Text, AsyncStorage, Dimensions, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, AsyncStorage, Dimensions, StyleSheet } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import FBCustomLoginButton from '../components/FBSDK/FBCustomLoginButton'
@@ -74,7 +74,7 @@ class LoginPage extends Component<{}> {
     
     render() {
         return (
-            <SafeAreaView style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                 <Icon name="comments" style={styles.headerIcon}/>
                 <Text style={styles.title}>Login to ChatApp</Text>
                 <TxtInput 
@@ -112,7 +112,7 @@ class LoginPage extends Component<{}> {
                     onPress={()=>this.props.navigation.navigate('SignupPage')}
                 />
                 <SlideUpMessage ref={ref =>this._error = ref} />
-            </SafeAreaView>
+            </View>
         )
     }
 }

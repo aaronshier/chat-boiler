@@ -23,10 +23,6 @@ class Settings extends Component {
         this._timeout
     }
 
-    componentDidMount(){
-        console.log('settings component!', this.props)
-    }
-
     logUserOut = async () => {
         await this.props.redux.socket.close()
         await this.props.userData({})
@@ -34,7 +30,7 @@ class Settings extends Component {
     }
 
     checkUserName = async () => {
-        return await fetch(`${server}/api/mobile/check-username`, {
+        return await fetch(`${server}/api/check-username`, {
             headers: {
                 'user-agent': 'Mozilla/4.0 MDN Example',
                 'content-type': 'application/json',
@@ -47,8 +43,7 @@ class Settings extends Component {
     }
 
     updateUser = async () => {
-        console.log(this.props.redux)
-        return await fetch(`${server}/api/mobile/update-user`,{
+        return await fetch(`${server}/api/update-user`,{
             headers: {
                 'user-agent': 'Mozilla/4.0 MDN Example',
                 'content-type': 'application/json',
@@ -56,20 +51,38 @@ class Settings extends Component {
             },
             method: 'POST',
             body: JSON.stringify(this.state)
-        }).then(res => res.json())
+        }).then(res => res.json()).catch(e => {
+            console.log(e, 'error in update user')
+        })
     }
 
     handleTextChange = async ({prop, val}) => {
+
         clearTimeout(this._timeout)
+
         await this.setState({[prop]: val})
+
         this._timeout = setTimeout(async ()=> {
-            const isAvailable = await this.checkUserName()
-            this.setState({username_available: isAvailable})
-            if(isAvailable){
-                let updated = await this.updateUser()
-                this.setState(updated.user)
+            let isAvailable
+            if(prop === 'username'){
+                isAvailable = await this.checkUserName()
+                await this.setState({ username_available: isAvailable })
+                if(isAvailable){
+                    let updated = await this.updateUser()
+                    if(updated.status === 200){
+                        let update = Object.assign({}, this.state)
+                        delete update.username_available
+                        console.log({update})
+                        this.props.userData(update)
+                    }
+                }
+            } else {
+                let update = this.state
+                delete update.username_available
+                this.props.userData(update)
             }
         }, 300)
+
     }
 
     render() {

@@ -120,8 +120,6 @@ module.exports = function(passport) {
           })
         }
       })
-      
-
     })
   }))
 
@@ -162,6 +160,7 @@ module.exports = function(passport) {
           newUser.facebook.refresh_token = refreshToken
           newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName
           newUser.facebook.email = (profile.emails[0].value || '').toLowerCase()
+          newUser.email = (profile.emails[0].value || '').toLowerCase()
           newUser.avatar = `https://graph.facebook.com/v2.6/${profile.id}/picture?height=600&width=600`
 
           newUser.save(function(err) {
