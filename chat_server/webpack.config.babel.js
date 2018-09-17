@@ -38,7 +38,6 @@ if(production){
       
     ]
   }
-
   serverConfig = {
     entry: ['babel-polyfill', './src/server/index.js'],
     target: 'node',
@@ -62,7 +61,6 @@ if(production){
       })
     ]
   }
-
 } else {
   console.log({production: false})
   browserConfig = {
@@ -90,7 +88,6 @@ if(production){
       }),
     ]
   }
-
   serverConfig = {
     entry: ['babel-polyfill', './src/server/index.js'],
     target: 'node',

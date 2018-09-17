@@ -2,6 +2,7 @@
 
 import express from 'express'
 import passport from 'passport'
+import User from '../models/user'
 
 import { status_codes } from '../../config'
 const mongoose = require('mongoose')
@@ -26,6 +27,41 @@ router.post('/login', passport.authenticate('local-login', {
 }))
 
 
+router.post('/check-username', async (req, res) => {
+  const username = req.body.username.toLowerCase().replace((/  |\r\n|\n|\r/gm),"")
+  
+  const nameTaken = await User.findOne({
+    username
+  })
+
+  console.log({'check-username': username})
+  
+  console.log({nameTaken: nameTaken ? false : true})
+
+  res.json({status: 200, username, nameAvailable: nameTaken ? false : true })
+})
+
+router.post('/update-user',  passport.authenticate('jwt', { session: false}), async (req, res) => {
+  
+  const username = req.body.username.toLowerCase().replace((/  |\r\n|\n|\r/gm),"");
+  const uid = req.user._id
+  
+  const nameTaken = await User.findOne({
+    username
+  })
+  
+  if(!nameTaken){
+    let user = await User.findOne({_id: uid})
+    user.username = username
+    const userUpdated = await User.update({_id: req.user._id}, user)
+    res.json({status: status_codes.OK, username, update: userUpdated })
+  } else {
+    res.json({status: status_codes.RESOURCE_ALREADY_EXISTS, message: `The username "${username}" is already taken`})
+  }
+
+})
+
+
 //FILE STORAGE API STUFF
 conn.once("open", () => {
   let allFiles = conn.db.collection('fs.files')
@@ -42,8 +78,8 @@ conn.once("open", () => {
       }).toArray((err, files) => {
 
       if (files.length === 0) {
-        return res.status(status_codes.NOT_FOUND).send({
-            status: status_codes.NOT_FOUND, message: 'File not found'
+        return res.status(404).send({
+            message: 'File not found'
         })
       }
       
@@ -96,24 +132,7 @@ conn.once("open", () => {
     })
   })
 
-  router.get('/user-images/:user_id', isLoggedIn, (req, res) => {
-      
-      console.log({req_user: req.user._id})
-
-      gfs.files.find({
-        'metadata.user_id': req.user._id
-      }).toArray((err, files) => {
-
-      if (files.length === 0) {
-        return res.status(status_codes.NOT_FOUND).send({
-            status: status_codes.NOT_FOUND, message: 'No images found'
-        })
-      }
-      
-    })
-  })
-
-  router.post('/image', isLoggedIn, async(req, res) => {
+  router.post('/image', passport.authenticate('jwt', { session: false}), async(req, res) => {
     
     let part = req.files.file
     
@@ -122,41 +141,48 @@ conn.once("open", () => {
     let userID = req.body.user_id
 
     var newID = mongoose.Types.ObjectId()
-
+    
+    const user_id = req.user._id.toString()
+    const lastFourOfUserID = user_id.substring(user_id.length - 4)
+    
     let imageMeta = {
-      url: `api/images/img_${newID}`,
+      url: `api/mobile/images/img_${newID}_${lastFourOfUserID}`,
       is_profile: isProfile,
       is_banner: isBanner,
       is_library: false,
+      title: req.body.title,
+      description: req.body.desc,
+      users_tagged: req.body.tags,
       user_id: userID
     }
-    
-    if(isProfile === "true"){
-      console.log('isProfile happening -> ', isProfile)
-      allFiles.findOne({
-        'metadata.user_id' : req.user._id.toString(),
-        'metadata.is_profile': 'true'
-      }, (err, image) => {
-        if(image){
-          allFiles.update({_id: image._id}, { $set: {'metadata.is_profile': false, 'metadata.is_library': true }})
-        }
-      })
-    }
-        
-    if(isBanner === "true"){
-      console.log('isBanner happening -> ', isBanner)
-      allFiles.findOne({
-        'metadata.user_id' : req.user._id.toString(),
-        'metadata.is_banner': 'true'
-      }, (err, image) => {
-        if(image){
-          allFiles.update({_id: image._id}, { $set: {'metadata.is_banner': false, 'metadata.is_library': true }})
-        }
-      })
-    }
+    console.log(req.body)
 
-    let writeStream = gfs.createWriteStream({
-        filename: 'img_' + newID,
+    // if(isProfile === "true"){
+    //   console.log('isProfile happening -> ', isProfile)
+    //   allFiles.findOne({
+    //     'metadata.user_id' : req.user._id.toString(),
+    //     'metadata.is_profile': 'true'
+    //   }, (err, image) => {
+    //     if(image){
+    //       allFiles.update({_id: image._id}, { $set: {'metadata.is_profile': false, 'metadata.is_library': true }})
+    //     }
+    //   })
+    // }
+        
+    // if(isBanner === "true"){
+    //   console.log('isBanner happening -> ', isBanner)
+    //   allFiles.findOne({
+    //     'metadata.user_id' : req.user._id.toString(),
+    //     'metadata.is_banner': 'true'
+    //   }, (err, image) => {
+    //     if(image){
+    //       allFiles.update({_id: image._id}, { $set: {'metadata.is_banner': false, 'metadata.is_library': true }})
+    //     }
+    //   })
+    // }
+
+    const writeStream = gfs.createWriteStream({
+        filename: `img_${newID}_${lastFourOfUserID}`,
         mode: 'w',
         content_type: part.mimetype,
         metadata: imageMeta
@@ -180,6 +206,7 @@ conn.once("open", () => {
     })  
   })
 })
+
 
 
 module.exports = router

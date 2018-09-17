@@ -7,6 +7,7 @@ import {
     Animated,
     Platform,
     Dimensions,
+    ImageStore,
     StyleSheet,
     TouchableOpacity,
 } from 'react-native'
@@ -43,7 +44,7 @@ class AddMedia extends Component {
             this.setState({
                 image
             }, () => {
-                this.runImageMeta(image)
+                this.openImageMetaWindow(image)
             })
         }).catch(e => {
             console.log(e)
@@ -59,14 +60,14 @@ class AddMedia extends Component {
               this.setState({
                   image
               }, () => {
-                  this.runImageMeta()
+                  this.openImageMetaWindow()
               })
           }).catch(e => {
             console.log(e)
         })
     }
 
-    runImageMeta = () => {
+    openImageMetaWindow = () => {
         if(this.state.cycleCompleted){
             this.setState({cycleCompleted: false}, 
               ()=>{
@@ -90,13 +91,17 @@ class AddMedia extends Component {
             })
         }
     }
-    
-    saveImageMeta = () => {
+
+    saveImageWithMeta = () => {
         const data = new FormData()
         
         data.append('user_id', this.props.redux.user._id) // you can append anyone.
         data.append('is_profile', true)
         data.append('is_banner', false)
+        
+        data.append('title', this.state.image_title)
+        data.append('desc', this.state.image_description)
+        data.append('tags', this.state.tag_user)
         
         data.append('file', {
             uri: this.state.image.path,
@@ -104,7 +109,7 @@ class AddMedia extends Component {
             name: this.props.redux.user._id
         })
   
-        fetch(`${server}/api/mobile/image`, {
+        fetch(`${server}/api/image`, {
             method: 'post',
             headers: {
                 'user-agent': 'Mozilla/4.0 MDN Example',
@@ -112,21 +117,16 @@ class AddMedia extends Component {
                 'Authorization': `JWT ${this.props.redux.user.token}`
             },
             body: data
-        }).then(res => {
-            console.log('res ->', res)
-            return res.json()
-        })
+        }).then(res => res.json())
         .then(response => {
             console.log('response -> ', response)
 
             ImageStore.removeImageForTag(this.state.image.path)
-            .then(() => {
-                this.setState({image: null})
-            })
+            this.setState({image: null})
         })
     }
 
-    closeImageMeta = (isProfile) => {
+    closeImageMetaWindow = (isProfile) => {
         this.setState({cycleCompleted: false}, 
             ()=>{
             Animated.timing(                  // Animate over time
@@ -145,14 +145,15 @@ class AddMedia extends Component {
             ).start()
             setTimeout(()=>{
                 this.setState({cycleCompleted: true})
-                this.saveImageMeta()
+                this.saveImageWithMeta()
             }, this.props.timer || 700)
         })
     }
 
     handleMetaChange = ({prop, val}) => {
-        console.log({prop, val})
+        this.setState({[prop]: val})
     }
+
     handleTagUser = (user) => {
         let taggedUsers = [...this.state.taggedUsers, user]
         this.setState({taggedUsers})
@@ -215,7 +216,7 @@ class AddMedia extends Component {
                     }
                     <Btn
                         text="SAVE"
-                        onPress={this.closeImageMeta} 
+                        onPress={this.closeImageMetaWindow} 
                         style={styles.btn}
                     />
                 </Animated.View>

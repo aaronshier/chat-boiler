@@ -65,7 +65,7 @@ class FBSignUpUserName extends Component<{}> {
     }
 
     handleUsernameChange = ({ prop, val}) => {
-        fetch(`${server}/api/mobile/check-username`, {
+        fetch(`${server}/api/check-username`, {
             method: 'POST',
             headers: {
                 'user-agent': 'Mozilla/4.0 MDN Example',

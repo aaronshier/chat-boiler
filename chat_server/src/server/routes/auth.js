@@ -18,11 +18,6 @@ router.get('/facebook/callback',
   res.redirect('/');
 })
 
-// router.get('/facebook/callback',
-//   passport.authenticate('facebook', {
-//     failureRedirect: `${server}/#failing`,
-//     successRedirect: `${server}/#successing`}))
-
 router.post('/facebook/token',
   passport.authenticate('facebook-token'),
   (req, res) => {

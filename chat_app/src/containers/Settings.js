@@ -30,7 +30,7 @@ class Settings extends Component {
     }
 
     checkUserName = async () => {
-        return await fetch(`${server}/api/mobile/check-username`, {
+        return await fetch(`${server}/api/check-username`, {
             headers: {
                 'user-agent': 'Mozilla/4.0 MDN Example',
                 'content-type': 'application/json',
@@ -43,7 +43,7 @@ class Settings extends Component {
     }
 
     updateUser = async () => {
-        return await fetch(`${server}/api/mobile/update-user`,{
+        return await fetch(`${server}/api/update-user`,{
             headers: {
                 'user-agent': 'Mozilla/4.0 MDN Example',
                 'content-type': 'application/json',
