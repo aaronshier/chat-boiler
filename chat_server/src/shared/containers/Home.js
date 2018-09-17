@@ -1,41 +1,112 @@
 import React, { Component } from 'react'
-import { NavLink as Link } from 'react-router-dom'
-import { getTitle }from '../routes'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { ActionCreators } from '../actions/index'
 
-class Home extends Component {
-	constructor(props){
-	  super(props);
-	
-	  this.state = {};
-	}
-	componentDidMount(){
-		getTitle()
-	}
-	render(){
-		return (
-				<div style={styles.home_wrap}>
-					<div style={{padding: '20px'}}>
-						<div style={{padding: '20px', maxWidth: 500, background: '#f6f6f6', clear: 'both'}}>
-							<h1 style={{fontSize: 60, margin: '0 0 20px', textAlign: 'center'}}>HERMN SSR</h1>
-							<h2 style={{margin: 0, textAlign: 'center', margin: '0 0 20px'}}>Welcome to HU$H's MERN Stack...</h2>
-							<p style={{margin: 0, textAlign: 'center'}}>This stack comes packaged with Reactjs, Expressjs, MongoDB, and some handy integrations including server side rendering with react router v4, local signup, 'Log In With Facebook' using Passportjs, and Googles Material UI design framework</p>					
+class Chat extends Component<{}> {
+
+    constructor(props){
+        super(props)
+    
+        this.state = {
+            message: 'Anything you want!',
+            open_message: false
+		}
+		this.formatMessage = this.formatMessage.bind(this)
+		this.sendNewMessage = this.sendNewMessage.bind(this)
+    }
+
+    formatMessage(message, auth){
+        message.username = this.props.redux.user.username
+        return JSON.stringify({
+            type: 'global-chat',
+            message,
+            auth
+        })
+    }
+
+    async sendNewMessage(message){
+        let auth = await checkForAllTokens()
+        let msg = this.formatMessage(message, auth)
+        msg.username = this.props.redux.user.username
+        await this.props.redux.socket.send(msg)
+    }
+
+    render() {
+			const ChatRoomMessages = (item) => {
+			let self = item.user_id === this.props.redux.user._id
+			console.log({self})
+			return (
+				<div style={{
+					flexDirection: self ? 'row-reverse' : 'row',
+					alignItems: 'center'}}>
+						<div style={{paddingHorizontal: 6}}>
+						{ // The avatar logic
+							item.avatar &&
+								<img style={{
+									borderRadius: 13,
+									height: 26,
+									width: 26,
+									marginTop: 3.5,}}
+									src={item.avatar} />
+							
+						}
 						</div>
-						<div style={{padding: '20px', maxWidth: 500, marginTop: 20, background: '#f6f6f6' }}>
-							<p><strong>To get you started,</strong> this baseline theme has user <Link to="/signup" style={{color: '#0af'}}>signup</Link> and <Link to="/login" style={{color: '#0af'}}>login</Link> pages, as well as an example using isomorphic-fetch to render data from the self contained api. Its also setup up fully mobile responsive with a drawer menu below 590px</p>
+						<div>
+							<p style={{ alignSelf: self ? 'flex-end' : 'flex-start', fontSize: 7, margin: '3px 0,', padding: 0}}>{item.username}</p>
+							<div style={{
+									alignSelf: self ? 'flex-end' : 'flex-start',
+									backgroundColor: '#0af',
+									borderRadius: 16,
+									overflow: 'hidden',
+									paddingHorizontal: 15,
+									paddingVertical: 7,
+									marginBottom: 10,
+									maxWidth: calc('100%' - 48)
+							}}>
+								<p style={{
+									color: '#fff',
+									margin: 0, padding: 0
+								}}>
+									{item.message}
+								</p>
+							</div>
 						</div>
-					</div>
 				</div>
-		)
-	}
+			)
+		}
+		
+        return (
+            <div style={styles.fillSpace}>
+				{
+					this.props.redux.global_messages.map(item => {
+						<ChatRoomMessages item={item}/>
+					})
+				}
+            </div>
+        )
+    }
 }
 
-export default Home
+function mapStateToProps(redux) {
+    return {
+        redux
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return bindActionCreators(ActionCreators, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat)
 
 const styles = {
-	home_wrap: {
-		display: 'flex',
-		minHeight: 'calc(100% - 200px)',
-		justifyContent: 'center',
-		alignItems: 'center',
-	}
+    fillSpace: {
+        flex: 1
+    },
+    fillAndCenter: {
+        flex: 1,
+        justifyContent: 'center',
+        alignContent: 'center'
+    },
 }

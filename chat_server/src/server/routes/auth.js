@@ -37,7 +37,7 @@ router.post('/facebook/token',
     }
 
     // return to user with STU
-    res.send( user ? { status: status_codes.OK, user, token } : { status: status_codes.RESOURCE_DOESNT_EXISTS } );
+    res.send( user ? { status: status_codes.OK, user, token } : { status: status_codes.RESOURCE_DOESNT_EXIST } );
 
   }
 )

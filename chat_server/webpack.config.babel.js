@@ -9,7 +9,7 @@ let browserConfig, serverConfig
 if(production){
   console.log({production: true})
   browserConfig = {
-    entry: './src/browser/index.js',
+    entry:  ['babel-polyfill', './src/browser/index.js'],
     output: {
       path: path.resolve(__dirname, 'public'),
       filename: 'bundle.production.min.js',
@@ -64,7 +64,7 @@ if(production){
 } else {
   console.log({production: false})
   browserConfig = {
-    entry: './src/browser/index.js',
+    entry:  ['babel-polyfill', './src/browser/index.js'],
     output: {
       path: path.resolve(__dirname, 'public'),
       filename: 'bundle.production.min.js',

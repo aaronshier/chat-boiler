@@ -129,13 +129,22 @@ module.exports = function(passport) {
     passReqToCallback: true,
   },
   function(req, email, password, done) {
-    User.findOne({ 'local.email':  email }, function(err, user) {
-      if (err)
+    User.findOne({ email }, function(err, user) {
+      console.log('inside local login ->')
+      if (err){
+        console.log('ERR!')
         return done(err)
-      if (!user)
+      }
+      if (!user){
+        console.log('NO USER!')
         return done(null, false)
-      if (!user.validPassword(password))
+      }
+      if (!user.validPassword(password)){
+        console.log('PASSWORD DOES NOT MATCH!')
         return done(null, false)
+      }
+      console.log('password correct ->', user)
+      user.password = 'xxx'
       return done(null, user)
     })
   }))

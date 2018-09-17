@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import { ActionCreators } from './actions/index'
 
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import SocketHandler from './components/SocketHandler';
 
 class App extends Component {
 	constructor(props) {
@@ -21,14 +22,18 @@ class App extends Component {
 		} else {
 			member = this.props.member
 		}
-		member.login = true
+		if(member){
+			member.login = true
+		} else {
+			member = { login: false }
+		}
 		this.props.userData(member)
 	}
-
 	render(){
 		return (
 			<div style={{flex: 1, height: '100%'}}>
 				<NavBar/>
+				{ this.props.redux.user._id && __isBrowser__ && <SocketHandler />}
 				<Switch>
 					{
 						routes.map( ({path, exact, component: C, ...rest }) => (

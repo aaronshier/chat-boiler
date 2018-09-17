@@ -14,7 +14,6 @@ export const incomingChatService = async ({data, wss, ws}) => {
         // Now that we're authenticated we can send messages
         // response code - first make sure theres a user
         if(authorized.status === 200){
-
             // UPDATE CHAT DATABASE
             let response = data.message
             response.avatar = user.avatar ? user.avatar : false
@@ -25,7 +24,7 @@ export const incomingChatService = async ({data, wss, ws}) => {
 
         } else {
             ws.send( JSON.stringify({
-            status: status_codes.RESOURCE_DOESNT_EXISTS,
+            status: status_codes.RESOURCE_DOESNT_EXIST,
             message: 'error skt105: There seems to be an issue authenticating your login, please log in again to ensure propper functionality'
             }) )
         }

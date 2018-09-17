@@ -1,15 +1,9 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { ActionCreators } from '../actions'
-import { server, wsport } from '../config'
-import { checkForAllTokens } from './auth'
-
-import {
-    ImageCacheManager
-} from 'react-native-cached-image';
-const cacheManager = ImageCacheManager({})
+import { server, wsURL } from '../../config'
+let reconnect
 
 class SocketInitiator extends Component<{}> {
     constructor(props){
@@ -18,28 +12,31 @@ class SocketInitiator extends Component<{}> {
         this.state = {
             connected: false,
         }
+        this.connect = this.connect.bind(this)
     }
     componentDidMount(){
+        console.log("%cSOCKET STATUS: %cCONNECTING", "color: #00aaff","color: #ffaa00")
         this.connect()
     }
-    connect = async () => {
+    async connect() {
+        clearTimeout(reconnect)
         await this.props.loadSocket({})
-        console.log('ATTEMPTING SOCKET CONNECTION to ' + wsport)
-        let socket = new WebSocket(wsport);
+        
+        let socket = new WebSocket(wsURL)
+        
         // Initiate initial login
         socket.onopen = async () => { 
             console.log("%cSOCKET STATUS: %cCONNECTED", "color: #00aaff","color: #00aa00")
-            let auth = await checkForAllTokens()
+            const auth = 'some_token'
             socket.send(JSON.stringify({
                     type: 'initial-login',
                     user: this.props.redux.user,
                     auth
                 })
             )
-            this.setState({connected:true})
             this.props.loadSocket(socket)
-            this.props.socketOpen(true)
         }
+
         // Check for initial-login response
         socket.onmessage = async (m) => {
             let data = JSON.parse(m.data)
@@ -60,10 +57,6 @@ class SocketInitiator extends Component<{}> {
             
             // If chat
             if(data.type === 'global-chat'){
-                // If there is an avatar cache it
-                if(data.avatar){
-                    cache = await cacheManager.downloadAndCacheUrl(data.avatar)
-                }
                 this.props.incomingGlobalChat(data)
             }
             
@@ -76,8 +69,8 @@ class SocketInitiator extends Component<{}> {
             await this.props.loadSocket({})
             reconnect = await setTimeout(t => this.connect(), 1000)
         }
+
         socket.onerror = async (e) => {
-            console.log("%cSOCKET CONNECTION ERROR: %cCLOSING", "color: #ff6600","color: #d00")
             console.log('socket error! closing')
             await socket.close()
             //reconnect = await setTimeout(t => this.connect(), 1000)

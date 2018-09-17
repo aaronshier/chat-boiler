@@ -61,7 +61,6 @@ router.post('/update-user',  passport.authenticate('jwt', { session: false}), as
 
 })
 
-
 //FILE STORAGE API STUFF
 conn.once("open", () => {
   let allFiles = conn.db.collection('fs.files')

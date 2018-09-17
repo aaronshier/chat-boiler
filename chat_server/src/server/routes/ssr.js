@@ -9,9 +9,14 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducers from '../../shared/reducers'
 
+import passport from 'passport'
+require('../../config/passport')(passport)
+passport.authenticate('jwt', { session: false})
+var jwt = require('jsonwebtoken')
+
 import { SheetsRegistry } from 'react-jss/lib/jss';
 import JssProvider from 'react-jss/lib/JssProvider';
-import { production, MUIDemoTheme, server } from '../../config'
+import { production, MUIDemoTheme, server, secret } from '../../config'
 
 import {
 	MuiThemeProvider,
@@ -38,15 +43,23 @@ app.get('*', (req, res, next) => {
 	//ROUTE DETECTION
 	const activeRoute = routes.find( (route) => matchPath(req.url, route) ) || {}
 	
+	//Function for fetchInitialData
 	const promise = activeRoute.fetchInitialData
 		? activeRoute.fetchInitialData(req.path)
 		: Promise.resolve()
 
-  	const store = createStore(reducers)
+	// Setup react store
+	const store = createStore(reducers)
+	let token = null
+	let userData = null
 
-  	const userData = userStatus(req, res, next)
-  	? { ...req.user.toJSON()}
-  	: { user: null, loggedIn: false}
+	token = userStatus(req, res, next) 
+		? jwt.sign(req.user.toJSON(), secret)
+		: null
+
+	userData = userStatus(req, res, next)
+		? { ...req.user.toJSON(), token }
+		: null
 
 	promise.then( (data) => {
 		const context = {}
@@ -94,9 +107,10 @@ app.get('*', (req, res, next) => {
 					window.__USER_DATA__ = ${serialize(userData)}
 					window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
 					</script>
-					<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
-					<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-					<link rel="stylesheet" type="text/css" href="/css/style.min.css">
+					<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+					<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+					<link rel="stylesheet" type="text/css" href="/css/style.min.css" />
+					<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 					<style>
 
 						html, body, #app, #app>div {

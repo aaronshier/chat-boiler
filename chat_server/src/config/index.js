@@ -6,13 +6,15 @@ export const MUIDemoTheme = require('./MUIDemoTheme').default
 
 export const production = false
 
+export const wsURL = `ws://localhost:8001`
+
 export const socket = 8001
 
 export const status_codes = {
     OK: 200,
     RESOURCE_CREATED: 201,
 	BAD_CREDENTIALS: 400,
-    RESOURCE_DOESNT_EXISTS: 401,
+    RESOURCE_DOESNT_EXIST: 401,
     RESOURCE_ALREADY_EXISTS: 402,
 	NOT_FOUND: 404,
 	MISSING: 501,

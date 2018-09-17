@@ -125,7 +125,7 @@ class Settings extends Component {
                     />
                     <TxtInput 
                         id="email"
-                        placeholder={ this.state.email || this.state.facebook.email || 'username'}
+                        placeholder={ this.state.email || this.state.facebook.email || 'email not found'}
                         onChange={this.handleTextChange}
                         styles={styles.input}
                         editable={false}

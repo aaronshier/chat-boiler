@@ -38,11 +38,15 @@ router.post('/signup', (req, res, next) => {
 })
 
 router.post('/login', function(req, res) {
-  let query = { $or: [ { 'email':  req.body.email.toLowerCase() }, { 'username':  req.body.username.toLowerCase() } ] }
+
+  console.log('req body email ->', req.body.email)
+  console.log('req body username ->', req.body.email)
+  let query = { $or: [ { 'email':  req.body.email.toLowerCase() }, { 'username':  req.body.email.toLowerCase() } ] }
+  console.log({query})
     User.findOne(query, (err, user) => {
       if (err) throw err
       if (!user) {
-        res.status(status_codes.RESOURCE_DOESNT_EXISTS).send({status: status_codes.RESOURCE_DOESNT_EXISTS, message: 'Authentication failed. User not found.'})
+        res.status(status_codes.RESOURCE_DOESNT_EXIST).send({status: status_codes.RESOURCE_DOESNT_EXIST, message: 'Authentication failed. User not found.'})
       } else {
         // check if password matches
         user.comparePasswordMobile(req.body.password, (err, authorized) => {
