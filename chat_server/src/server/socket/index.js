@@ -1,11 +1,3 @@
-import { server, secret, status_codes, facebookAuth, socket } from '../../config'
-
-const WebSocket = require('ws');
-const wss = new WebSocket.Server({ port: socket });
-
-const User = require('../models/user')
-var jwt = require('jsonwebtoken')
-
 import passport from 'passport'
 
 require('../../config/passport')(passport)
@@ -22,7 +14,8 @@ setInterval(() => {
   }
 }, 1000 * 60 * 1 /*one minute interval*/)
 
-wss.on('connection', function connection(ws) {
+
+export default ({ws, wss, req}) => {
   ws.on('message', async function incoming(data) {
     console.log('connection made!', data)
 
@@ -39,6 +32,144 @@ wss.on('connection', function connection(ws) {
 
     incomingChatService({data, ws, wss})
   })
+}
 
-})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { server, secret, status_codes, facebookAuth, socket } from '../../config'
+
+// const WebSocket = require('ws');
+// const wss = new WebSocket.Server({ port: socket });
+
+// const User = require('../models/user')
+// var jwt = require('jsonwebtoken')
+
+// import passport from 'passport'
+
+// require('../../config/passport')(passport)
+// passport.authenticate('jwt', { session: false})
+
+// import { login } from './auth'  
+// import { incomingChatService } from './chat'  
+
+// let runningChat = []
+
+// setInterval(() => {
+//   if(runningChat.length > 100){
+//     runningChat = []
+//   }
+// }, 1000 * 60 * 1 /*one minute interval*/)
+
+// wss.on('connection', function connection(ws) {
+//   ws.on('message', async function incoming(data) {
+//     console.log('connection made!', data)
+
+//     // Parse Message Data
+//     data = JSON.parse(data)
+
+//     // Login logic for initial logins and reconnecting
+//     if(data.type === 'initial-login'){ 
+//       let authorized =  await login({wss,ws,data}).catch(e => console.log(e, 'error from socket auth message "login()"'))
+//       authorized.type = 'initial-login'
+//       authorized.running_chat = runningChat
+//       ws.send(JSON.stringify(authorized))
+//     }
+
+//     incomingChatService({data, ws, wss})
+//   })
+
+// })
 

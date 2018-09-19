@@ -10,16 +10,18 @@ import cookieSession from 'cookie-session'
 import helmet from 'helmet'
 import favicon from 'serve-favicon'
 
-
 // Import Routes
 import ssr from './routes/ssr.js'
 import tests from './routes/tests.js'
 import api from './routes/api.js'
 import auth from './routes/auth.js'
 import mobile from './routes/mobile.js'
+import sockets from './socket'
 
 // Create App
 const app = express()
+
+const expressWs = require('express-ws')(app);
 
 // Set port
 const port = process.env.PORT || 8000
@@ -33,7 +35,7 @@ mongoose.connect(database.url)
 require('../config/passport')(passport)
 
 // Chat Socket Server
-require('./socket')
+// require('./socket')
 
 // Setup Basic Security
 app.use(helmet())
@@ -55,7 +57,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(cookieSession({
   // Session Name
-  name: 'HERMN_SSR_MUI',
+  name: 'CHAT_APP',
 
   // Encryption Keys
   keys: ['your_keys', 'go_here', 'make_many'  ],
@@ -74,6 +76,7 @@ app.use('/tests', tests)
 app.use('/api', api)
 app.use('/api/mobile', mobile)
 app.use('/auth', auth)
+app.ws('/ws', (ws, req) => sockets({ws, wss: expressWs.getWss(),  req}))
 
 // This route goes last! Its our SSR Route
 // If placed before this point it will override the API routes
