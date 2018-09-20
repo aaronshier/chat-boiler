@@ -1,8 +1,8 @@
-const port = '8000'
-export { port }
-const ip = '10.165.1.139:8000'
-export const wsport = `ws://10.165.1.139:8000/ws`
-export const server = `http://${ip}`
+// const port = '8000'
+// export { port }
+const ip = 'ohshutit.app'
+export const wsport = `wss://ohshutit.app/ws`
+export const server = `https://${ip}`
 export const prefix = 'chat_app'
 
 export const status_codes = {

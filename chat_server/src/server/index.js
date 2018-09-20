@@ -76,6 +76,9 @@ app.use('/tests', tests)
 app.use('/api', api)
 app.use('/api/mobile', mobile)
 app.use('/auth', auth)
+
+// Websocket needs to be passed the main socket manager (wss)
+// so we give express a function I created in ./socket/index.js
 app.ws('/ws', (ws, req) => sockets({ws, wss: expressWs.getWss(),  req}))
 
 // This route goes last! Its our SSR Route

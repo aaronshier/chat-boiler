@@ -5,7 +5,7 @@ import { server, status_codes } from '../../config'
 
 export const checkForLocalToken = async () => {
     try {
-        const value = await AsyncStorage.getItem(`@${prefix}:jwt`).catch(e => console.log('there was an error in checkForLocalToken', e))
+        const value = await AsyncStorage.getItem(`@${prefix}:jwt`).catch(e => alert('there was an error in checkForLocalToken', e))
         if (value !== null) {
             return value
         }
@@ -16,7 +16,7 @@ export const checkForLocalToken = async () => {
 
 export const eraseLocalToken = async () => {
     try {
-        const value = await AsyncStorage.removeItem(`@${prefix}:jwt`, '').catch(e => console.log('there was an error in eraseLocalToken', e))
+        const value = await AsyncStorage.removeItem(`@${prefix}:jwt`, '').catch(e => alert('there was an error in eraseLocalToken', e))
         if (value === null) {
             return true
         }
@@ -30,6 +30,7 @@ export const loginWithLocalToken = async (info) => {
     let user
 
     if(user_token){
+        console.log({user_token})
         login = await fetch(`${server}/api/mobile/auto-login`, {
             include: 'credentials',
             method: 'POST',
@@ -41,7 +42,7 @@ export const loginWithLocalToken = async (info) => {
         }).then(response => response.json())
         .then(async res => {   
             if(res.status === status_codes.OK){
-                const value = await AsyncStorage.setItem(`@${prefix}:jwt`, info.token).catch(e => console.log('there was an error in loginWithLocalToken/AsyncStorage.setItem()', e))
+                const value = await AsyncStorage.setItem(`@${prefix}:jwt`, info.token).catch(e => alert('there was an error in loginWithLocalToken/AsyncStorage.setItem()', e))
                 user = res.user
                 user.login = true
                 return true
@@ -49,8 +50,7 @@ export const loginWithLocalToken = async (info) => {
                 login = false
                 return false
             }
-        }).catch(e => console.log('there was an error in loginWithLocalToken', e))
+        }).catch(e => alert('there was an error in loginWithLocalToken', e))
     }
-    
     return user
 }

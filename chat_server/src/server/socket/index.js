@@ -24,7 +24,7 @@ export default ({ws, wss, req}) => {
 
     // Login logic for initial logins and reconnecting
     if(data.type === 'initial-login'){ 
-      let authorized =  await login({wss,ws,data}).catch(e => console.log(e, 'error from socket auth message "login()"'))
+      let authorized =  await login({wss,ws,data}).catch(e => alert(e, 'error from socket auth message "login()"'))
       authorized.type = 'initial-login'
       authorized.running_chat = runningChat
       ws.send(JSON.stringify(authorized))
@@ -162,7 +162,7 @@ export default ({ws, wss, req}) => {
 
 //     // Login logic for initial logins and reconnecting
 //     if(data.type === 'initial-login'){ 
-//       let authorized =  await login({wss,ws,data}).catch(e => console.log(e, 'error from socket auth message "login()"'))
+//       let authorized =  await login({wss,ws,data}).catch(e => alert(e, 'error from socket auth message "login()"'))
 //       authorized.type = 'initial-login'
 //       authorized.running_chat = runningChat
 //       ws.send(JSON.stringify(authorized))

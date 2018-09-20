@@ -37,7 +37,7 @@ export const login = async ({wss, ws, data}) => {
                 'Authorization': `Bearer ${data.auth.accessToken}`
             }
             }).then(response=>response.json())
-            .catch(e => console.log('there was an error in loginToServerWithFacebook', e))
+            .catch(e => alert('there was an error in loginToServerWithFacebook', e))
 
             let updateUser = update.user
             updateUser.facebook.access_token = data.auth.accessToken

@@ -8,7 +8,7 @@ export const incomingChatService = async ({data, wss, ws}) => {
     if(data.type === 'global-chat'){
         
         // Authenticate and get most current user data
-        let authorized = await login({wss,ws,data}).catch(e => console.log(e, 'error from socket auth message "login()"'))
+        let authorized = await login({wss,ws,data}).catch(e => alert(e, 'error from socket auth message "login()"'))
         let user = authorized.user
         
         // Now that we're authenticated we can send messages

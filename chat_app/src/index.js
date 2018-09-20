@@ -40,7 +40,7 @@ class index extends Component<{}> {
     let response = false
 
     // Check for tokens and store them in variable
-    const tokens = await checkForAllTokens().catch(e => console.log('there was an error in index.js/checkForAllTokens()', e))
+    const tokens = await checkForAllTokens().catch(e => alert('there was an error in index.js/checkForAllTokens()', e))
 
     // If theres a token, login with the token (will refresh if needed)
     if(tokens) response = await loginWithAuthTokens(tokens)

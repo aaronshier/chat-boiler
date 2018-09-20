@@ -85,6 +85,10 @@ class Settings extends Component {
 
     }
 
+    componentDidMount(){
+        console.log({settings_state: this.state})
+    }
+
     render() {
         return (
             <View style={{flex: 1}}>
@@ -125,7 +129,7 @@ class Settings extends Component {
                     />
                     <TxtInput 
                         id="email"
-                        placeholder={ this.state.email || this.state.facebook.email || 'email not found'}
+                        placeholder={ this.state.email || 'email not found'}
                         onChange={this.handleTextChange}
                         styles={styles.input}
                         editable={false}

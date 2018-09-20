@@ -24,7 +24,7 @@ export const loginToServerWithFacebook = async (token) => {
                 'Authorization': `Bearer ${token}`
             }
         }).then(response=>response.json())
-        .catch(e => console.log('there was an error in loginToServerWithFacebook', e))
+        .catch(e => alert('there was an error in loginToServerWithFacebook', e))
     }
     if(login){
         user = login.user
@@ -37,7 +37,7 @@ export const loginToServerWithFacebook = async (token) => {
 }
 
 export const checkForFacebookToken = async () => {
-    return await AccessToken.getCurrentAccessToken().catch(e => console.log('there was an error in checkForFacebookToken', e))
+    return await AccessToken.getCurrentAccessToken().catch(e => alert('there was an error in checkForFacebookToken', e))
 }
 
 export const logOutOfFacebook = async () => {

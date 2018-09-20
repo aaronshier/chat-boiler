@@ -46,6 +46,7 @@ class LoginPage extends Component<{}> {
     }
 
     handleLocalLoginSubmission = async () => {
+        console.log({server: `${server}/api/mobile/login`})
         if(this.state.email && this.state.password){
             this.setState({sending: true})
             let login = await fetch(`${server}/api/mobile/login`, {

@@ -6,7 +6,7 @@ export const MUIDemoTheme = require('./MUIDemoTheme').default
 
 export const production = false
 
-export const wsURL = `ws://localhost:8001`
+export const wsURL = `ws://localhost:8000/ws`
 
 export const socket = 8001
 
