@@ -1,4 +1,4 @@
-export const server = `http://localhost:8000`
+export const server = production ? `https://ohshutit.app` : `http://localhost:8000`
 
 export const demoObject = require('./DemoObjects')
 
@@ -6,7 +6,7 @@ export const MUIDemoTheme = require('./MUIDemoTheme').default
 
 export const production = false
 
-export const wsURL = `ws://localhost:8000/ws`
+export const wsURL = production ? `wss://ohshutit.app/ws` : `ws://localhost:8000/ws`
 
 export const socket = 8001
 
