@@ -1,9 +1,10 @@
 // const port = '8000'
 // export { port }
-const ip = 'ohshutit.app'
-export const wsport = `wss://ohshutit.app/ws`
-export const server = `https://${ip}`
+export const wsport = production ? `wss://ohshutit.app/ws` : `ws://localhost:8000/ws`
+export const server = production ? 'https://ohshutit.app' : 'http://localhost:8000'
 export const prefix = 'chat_app'
+
+export const production = false
 
 export const status_codes = {
     OK: 200,
