@@ -31,9 +31,10 @@ class IncomingMessageComponent extends Component<{}> {
                 </View>
                 <View>
                     <Text style={{ alignSelf: self ? 'flex-end' : 'flex-start', fontSize: 7,marginVertical: 3}}>{item.username}</Text>
-                    <View style={[styles.messageWrap, {alignSelf: self ? 'flex-end' : 'flex-start'}]}>
+                    <View style={[styles.messageWrap, {alignSelf: self ? 'flex-end' : 'flex-start', 
+                                backgroundColor: self ? '#0af' : '#eee'}]}>
                         <Text style={{
-                            color: '#fff'
+                            color: self ? '#fff' : '#000',
                         }}>
                             {item.message}
                         </Text>
