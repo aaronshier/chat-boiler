@@ -18,7 +18,6 @@ export const incomingChatService = async ({data, wss, ws}) => {
             let response = data.message
             response.avatar = user.avatar ? user.avatar : false
             response.type = "global-chat"
-            console.log({data})
             Chat.create(response)
             wss.clients.forEach( client => client.send(JSON.stringify(response)) )
 

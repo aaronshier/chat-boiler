@@ -19,8 +19,8 @@ class LoginPage extends Component<{}> {
         super(props)
     
         this.state = {
-            email: '',
-            password: '',
+            email: this.props.redux.login_creds.email,
+            password: this.props.redux.login_creds.password,
             sending: false
         }
         this._timout
@@ -46,7 +46,7 @@ class LoginPage extends Component<{}> {
     }
 
     handleLocalLoginSubmission = async () => {
-        console.log({server: `${server}/api/mobile/login`})
+        
         if(this.state.email && this.state.password){
             this.setState({sending: true})
             let login = await fetch(`${server}/api/mobile/login`, {
@@ -57,11 +57,12 @@ class LoginPage extends Component<{}> {
                 },
                 body: JSON.stringify(this.state)
             }).then(response => response.json())
-            
+            console.log({login})
             this.setState({sending: false})
+
             if(login.status === status_codes.OK){
                 await AsyncStorage.setItem(`@${prefix}:jwt`, login.token);
-                await this.setState({sending: false})
+                console.log({ITS: login})
                 this.props.screenProps.handleLogin(login.user)
             } else {
                 this._error.openMessage(login.message)

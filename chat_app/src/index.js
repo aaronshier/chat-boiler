@@ -7,7 +7,7 @@ import { prefix, server } from './config'
 import { loginToServerWithFacebook, loginWithAuthTokens, checkForAllTokens, logOutAll } from './components/auth'
 import Login from './containers/Login'
 import AppRouter from './containers/AppRouter'
-import SocketInitiator from './components/SocketManager'
+import SocketManager from './components/SocketManager'
 
 import SplashScreen from 'react-native-splash-screen'
 
@@ -22,17 +22,26 @@ class index extends Component<{}> {
     }
   }
   handleLogin = async (result) => {
-    const login = await this.props.userData({result})
+    const login = await this.props.userData(result)
     this.setState({ credentials: result  })
   }
 
   handleSignOut = async () => {
+    // Remove all tokens
     const logout = await logOutAll()
-    this.setState({
+    // Remove User Data from REDUX
+    await this.props.userData({login:false})
+    // Close Socket
+    await this.props.redux.socket.close()
+    // Delete the socket
+    await this.props.loadSocket({blank: 'totally'})
+
+    await this.setState({
       credentials: false,
       loaded : true,
       socket: false
     })
+    
   }
   
   async componentWillMount(){
@@ -80,7 +89,7 @@ class index extends Component<{}> {
           {
             // Once the user has logged in open the socket
             this.state.credentials && this.state.loaded &&
-              <SocketInitiator closeSocket={this.closeSocket} socketOpen={open =>this.setState({socket: open})}/>
+              <SocketManager closeSocket={this.closeSocket} socketOpen={open =>this.setState({socket: open})}/>
           }
 
           { 

@@ -11,7 +11,7 @@ import {
 } from 'react-native-cached-image';
 const cacheManager = ImageCacheManager({})
 
-class SocketInitiator extends Component<{}> {
+class SocketManager extends Component<{}> {
     constructor(props){
         super(props)
     
@@ -74,7 +74,9 @@ class SocketInitiator extends Component<{}> {
         socket.onclose = async () => {
             console.log('socket closed! reconnecting')
             await this.props.loadSocket({})
-            reconnect = await setTimeout(t => this.connect(), 1000)
+            if(this.props.redux.user.login){
+                reconnect = await setTimeout(t => this.connect(), 1000)
+            }
         }
         socket.onerror = async (e) => {
             console.log("%cSOCKET CONNECTION ERROR: %cCLOSING", "color: #ff6600","color: #d00")
@@ -98,4 +100,4 @@ function mapDispatchToProps(dispatch){
     return bindActionCreators(ActionCreators, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SocketInitiator)
+export default connect(mapStateToProps, mapDispatchToProps)(SocketManager)

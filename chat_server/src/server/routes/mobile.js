@@ -38,9 +38,6 @@ router.post('/signup', (req, res, next) => {
 })
 
 router.post('/login', function(req, res) {
-
-  console.log('req body email ->', req.body.email)
-  console.log('req body username ->', req.body.email)
   let query = { $or: [ { 'email':  req.body.email.toLowerCase() }, { 'username':  req.body.email.toLowerCase() } ] }
   console.log({query})
     User.findOne(query, (err, user) => {

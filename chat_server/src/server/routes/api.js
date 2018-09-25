@@ -28,7 +28,7 @@ router.post('/login', passport.authenticate('local-login', {
 
 
 router.post('/check-username', async (req, res) => {
-  const username = req.body.username.toLowerCase().replace((/  |\r\n|\n|\r/gm),"")
+  const username = req.body.username.toLowerCase().replace(/[^a-zA-Z ]/g, "").replace(/ /g, '_')
   
   const nameTaken = await User.findOne({
     username
@@ -43,7 +43,7 @@ router.post('/check-username', async (req, res) => {
 
 router.post('/update-user',  passport.authenticate('jwt', { session: false}), async (req, res) => {
   
-  const username = req.body.username.toLowerCase().replace((/  |\r\n|\n|\r/gm),"");
+  const username = req.body.username.toLowerCase()
   const uid = req.user._id
   
   const nameTaken = await User.findOne({
@@ -54,7 +54,11 @@ router.post('/update-user',  passport.authenticate('jwt', { session: false}), as
     let user = await User.findOne({_id: uid})
     user.username = username
     const userUpdated = await User.update({_id: req.user._id}, user)
-    res.json({status: status_codes.OK, username, update: userUpdated })
+    res.json({
+      status: status_codes.OK,
+      username: username.replace(/[^a-zA-Z ]/g, "").replace(/ /g, '_'),
+      update: userUpdated
+    })
   } else {
     res.json({status: status_codes.RESOURCE_ALREADY_EXISTS, message: `The username "${username}" is already taken`})
   }
@@ -69,6 +73,7 @@ conn.once("open", () => {
   router.use(busboyBodyParser({ limit: '10mb'})) 
 
   router.get('/images/:imgname', (req, res) => {
+      console.log('This is inside th eiage endpoit')
       let imgname = req.params.imgname
       let size = req.query.size
 
@@ -145,7 +150,7 @@ conn.once("open", () => {
     const lastFourOfUserID = user_id.substring(user_id.length - 4)
     
     let imageMeta = {
-      url: `api/mobile/images/img_${newID}_${lastFourOfUserID}`,
+      url: `api/images/img_${newID}_${lastFourOfUserID}`,
       is_profile: isProfile,
       is_banner: isBanner,
       is_library: false,

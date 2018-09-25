@@ -33,40 +33,54 @@ class Chat extends Component<{}> {
     }
 
     render() {
-			const ChatRoomMessages = (item) => {
+		const ChatRoomMessages = (props) => {
+			const { item } = props
 			let self = item.user_id === this.props.redux.user._id
-			console.log({self})
 			return (
 				<div style={{
-					flexDirection: self ? 'row-reverse' : 'row',
+					display: 'flex', flexDirection: self ? 'row-reverse' : 'row',
 					alignItems: 'center'}}>
-						<div style={{paddingHorizontal: 6}}>
+						<div style={{padding: '0 6px'}}>
 						{ // The avatar logic
-							item.avatar &&
+							item.avatar ?
 								<img style={{
 									borderRadius: 13,
 									height: 26,
 									width: 26,
 									marginTop: 3.5,}}
 									src={item.avatar} />
+									:
+								<img style={{
+									borderRadius: 13,
+									height: 26,
+									width: 26,
+									marginTop: 3.5,}}
+									src={'/images/temp_avatar.png'} />
 							
 						}
 						</div>
 						<div>
-							<p style={{ alignSelf: self ? 'flex-end' : 'flex-start', fontSize: 7, margin: '3px 0,', padding: 0}}>{item.username}</p>
+							<p style={{
+								    textAlign: self ? 'right' : 'left',
+								fontSize: 7,
+								margin: '3px 0',
+								padding: 0}}>{
+									item.username}
+							</p>
 							<div style={{
 									alignSelf: self ? 'flex-end' : 'flex-start',
 									backgroundColor: '#0af',
 									borderRadius: 16,
 									overflow: 'hidden',
-									paddingHorizontal: 15,
-									paddingVertical: 7,
+									padding: '5px 10px',
 									marginBottom: 10,
-									maxWidth: calc('100%' - 48)
+									maxWidth: 'calc(100% - 48)'
 							}}>
 								<p style={{
 									color: '#fff',
-									margin: 0, padding: 0
+									margin: 0,
+									padding: 0,
+									fontSize: 12
 								}}>
 									{item.message}
 								</p>
@@ -74,15 +88,27 @@ class Chat extends Component<{}> {
 						</div>
 				</div>
 			)
-		}
+	}
 		
-        return (
+		return (
             <div style={styles.fillSpace}>
-				{
-					this.props.redux.global_messages.map(item => {
-						<ChatRoomMessages item={item}/>
-					})
-				}
+				<div style={styles.card}>
+					<h1 style={{textAlign: 'center'}}>CHAT HOME</h1>
+					<p>Welcome to the chat boiler website.  This page syncs with your chat websocket allowing for real time connection to the app.  Bellow is the global chat room streaming live from the entry time</p>
+				</div>
+				<div style={{
+					padding: 20,
+					backgroundColor: '#eee',
+					minHeight: 100,
+					margin: '0 auto 40px',
+					maxWidth: '280px'
+				}}>
+					{ this.props.redux.global_messages.length > 0 ?
+						this.props.redux.global_messages.map(item => <ChatRoomMessages item={item}/> ) 
+					:
+						<p>No messages yet... try provoking someone</p>
+					}
+				</div>
             </div>
         )
     }
@@ -108,5 +134,10 @@ const styles = {
         flex: 1,
         justifyContent: 'center',
         alignContent: 'center'
-    },
+	},
+	card: {
+		maxWidth: 650,
+		padding: 20,
+		margin: 'auto'
+	}
 }

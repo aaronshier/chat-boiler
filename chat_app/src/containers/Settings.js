@@ -24,8 +24,7 @@ class Settings extends Component {
     }
 
     logUserOut = async () => {
-        await this.props.redux.socket.close()
-        await this.props.userData({})
+        this.setState({signing_out: true})
         this.props.screenProps.handleSignOut()
     }
 
@@ -59,8 +58,12 @@ class Settings extends Component {
     handleTextChange = async ({prop, val}) => {
 
         clearTimeout(this._timeout)
-
-        await this.setState({[prop]: val})
+        
+        if(prop === 'username'){
+            await this.setState({[prop]: val.replace(/[^a-zA-Z ]/g, "").replace(/ /g, '_')})
+        } else {
+            await this.setState({[prop]: val})
+        }
 
         this._timeout = setTimeout(async ()=> {
             let isAvailable
@@ -72,7 +75,6 @@ class Settings extends Component {
                     if(updated.status === 200){
                         let update = Object.assign({}, this.state)
                         delete update.username_available
-                        console.log({update})
                         this.props.userData(update)
                     }
                 }
@@ -123,6 +125,7 @@ class Settings extends Component {
                     </View>
                     <TxtInput 
                         id="username"
+                        value={this.state.username}
                         placeholder={ this.state.username || 'username'}
                         onChange={this.handleTextChange}
                         styles={styles.input}
@@ -136,7 +139,7 @@ class Settings extends Component {
                     />
                     <TouchableOpacity>
                         <Btn
-                            text={'logout'}
+                            text={ this.state.signing_out ? '...' : 'logout'}
                             styles={{
                                 borderRadius: 20,
                                 marginTop: 10,
