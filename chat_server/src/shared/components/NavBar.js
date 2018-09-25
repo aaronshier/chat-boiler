@@ -58,7 +58,19 @@ class NavBar extends Component {
     const navigation = redux.user.login ? navBarLoggedIn : navBarLoggedOut
     return (
       <div className="navbar">
-        <h1 style={{fontSize: 80}}>HERMN SSR 1.0</h1>
+        <i style={{
+          position: 'absolute',
+          left: '40px',
+          background: '#fff',
+          color: '#0af',
+          width: '45px',
+          height: '45px',
+          fontSize: '24px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: '100%',
+        }}class="fas fa-comments"></i>
         <ul style={{position: 'absolute', bottom: 0, right: 0}}>
           {navigation.map(({ name, url }, key) => (
             <NavLink key={key} activeStyle={{fontWeight: 'bold'}} to={url}>

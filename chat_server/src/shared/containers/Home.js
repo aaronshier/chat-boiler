@@ -101,6 +101,7 @@ class Chat extends Component<{}> {
 					backgroundColor: '#eee',
 					minHeight: 100,
 					margin: '0 auto 40px',
+					borderRadius: 10,
 					maxWidth: '280px'
 				}}>
 					{ this.props.redux.global_messages.length > 0 ?
