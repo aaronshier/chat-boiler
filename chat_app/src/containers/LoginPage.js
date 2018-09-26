@@ -62,8 +62,7 @@ class LoginPage extends Component<{}> {
 
             if(login.status === status_codes.OK){
                 await AsyncStorage.setItem(`@${prefix}:jwt`, login.token);
-                console.log({ITS: login})
-                this.props.screenProps.handleLogin(login.user)
+                this.props.screenProps.handleLogin({...login.user, token: login.token, login: true})
             } else {
                 this._error.openMessage(login.message)
                 // if(login.message === 'Authentication failed. User not found.'){

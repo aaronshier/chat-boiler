@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { ActionCreators } from '../actions'
 import ChatRoomMessage from '../components/chat/ChatRoomMessage' 
+import { relative } from 'path';
 class Chat extends Component<{}> {
 
     constructor(props){
@@ -11,7 +12,8 @@ class Chat extends Component<{}> {
         this.state = {
             message: 'Anything you want!',
 			open_message: false,
-			socketSet: false
+			socketSet: false,
+			time: new Date()
 		}
 		this.formatMessage = this.formatMessage.bind(this)
 		this.sendNewMessage = this.sendNewMessage.bind(this)
@@ -69,6 +71,14 @@ class Chat extends Component<{}> {
 		}
 	}
 	componentDidMount(){
+
+		let timeInterval = setInterval(() => {
+			let time = new Date()
+			this.setState({
+				time
+			})
+		}, 1000)
+
 		document.getElementById("chat_wrap").addEventListener("scroll", ()=>{
 			var objDiv = document.getElementById('chat_wrap');
 			let total = objDiv.scrollHeight
@@ -94,33 +104,83 @@ class Chat extends Component<{}> {
 				</div>
 				<div style={{
 						maxWidth: '280px',
-						maxHeight: 460,
+						maxHeight: 545,
 						position: 'relative',
 						margin: 'auto'
 					}}>
+					<img src="/images/iphone-overlay.png" style={{
+						position: "absolute",
+						width: '320px',
+						top: '-30px',
+						left: '-20px',
+						zIndex: 0,
+					}} />
+					<div style={{
+						height: '35px',
+						backgroundColor: '#0af',
+						borderTopRightRadius: 30,
+						borderTopLeftRadius: 30,
+						width: '250px',
+						margin: 'auto',
+						position: 'relative',
+						zIndex: -1
+					}}>
+						<p style={{
+							position: 'absolute',
+							left: 20,
+							color: '#fff',
+							fontSize: '12px',
+							top: '2px'
+						}}>
+							{
+								this.state.time.getHours() > 12 ? 
+									this.state.time.getHours() - 12
+								:
+									this.state.time.getHours()
+							}:{
+								this.state.time.getMinutes()
+							}
+						</p>
+						<i style={{
+							position: 'absolute',
+							top: 12,
+							right: 20,
+							color: '#fff'
+						}} className="fas fa-battery-full"></i>
+					</div>
 					<div id="chat_wrap" style={{
-						padding: 20,
-						backgroundColor: '#fafafa',
+						backgroundColor: 'transparent',
 						boxShadow: 'inset 2px 3px 2px rgba(0,0,0,.05)',
-						minHeight: 100,
-						margin: '0 auto 40px',
-						borderRadius: 10,
-						maxWidth: '280px',
-						maxHeight: 420,
 						overflowY: 'auto',
+						margin: '0 auto',
+						width: 220,
+						height: 497,
+						padding: '10px 30px 0',
+						borderRadius: 40,
+						borderTopLeftRadius: 0,
+						borderTopRightRadius: 0,
+						position: 'relative',
+						zIndex: 1,
 					}}>
 						{ 	this.props.redux.global_messages.length > 0 ?
 								this.props.redux.global_messages.map(item => <ChatRoomMessage item={item}/> )
 						:
-							<p>No messages yet... try provoking someone</p>
+							<p style={{
+								margin: 0,
+								position: 'absolute',
+								top: '50%',
+								left: '50%',
+								transform: 'translate(-50%, calc(-50% - 30px))'
+							}}>No messages yet...</p>
 						}
 					</div>
 					<i id="scroll_to_bottom"
 						onClick={ this.scrollChatWindowToBottom } style={{
 							position: 'absolute',
-							bottom: 10,
-							right: 10,
+							bottom: 30,
+							right: 40,
 							opacity: 0,
+							zIndex: 3,
 							transition: 'all .3s ease-in-out'
 					}} className="fas fa-chevron-down"></i>
 				</div>

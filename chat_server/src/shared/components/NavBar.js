@@ -70,7 +70,7 @@ class NavBar extends Component {
           alignItems: 'center',
           justifyContent: 'center',
           borderRadius: '100%',
-        }}class="fas fa-comments"></i>
+        }}className="fas fa-comments"></i>
         <ul style={{position: 'absolute', bottom: 0, right: 0}}>
           {navigation.map(({ name, url }, key) => (
             <NavLink key={key} activeStyle={{fontWeight: 'bold'}} to={url}>

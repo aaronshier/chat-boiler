@@ -15,15 +15,15 @@ class Profile extends Component<{}> {
                 <div style={styles.profileWrap}>
                     {this.props.redux.user.avatar ? <img style={styles.avatar} src={this.props.redux.user.avatar} />  : null}
                     <div style={styles.meta}>
-                        <i style={styles.icon} class="fas fa-user"></i>
+                        <i style={styles.icon} className="fas fa-user"></i>
                         <p>@{this.props.redux.user.username}</p>
                     </div>
                     <div style={styles.meta}>
-                        <i style={styles.icon} class="fas fa-envelope"></i>
+                        <i style={styles.icon} className="fas fa-envelope"></i>
                         <p>{this.props.redux.user.email}</p>
                     </div>
                     <div style={styles.meta}>
-                        <i style={styles.icon} class="fas fa-id-card"></i>
+                        <i style={styles.icon} className="fas fa-id-card"></i>
                         <p>ID: {this.props.redux.user._id.toString()}</p>
                     </div>
                     <p> Use the app to change your profile</p>
