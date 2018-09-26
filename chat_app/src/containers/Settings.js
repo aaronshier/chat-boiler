@@ -60,7 +60,7 @@ class Settings extends Component {
         clearTimeout(this._timeout)
         
         if(prop === 'username'){
-            await this.setState({[prop]: val.replace(/[^a-zA-Z ]/g, "").replace(/ /g, '_')})
+            await this.setState({ [prop]: val.replace(/[()!@#$%^&*]/g, "").replace(/ /g, '_') })
         } else {
             await this.setState({[prop]: val})
         }
