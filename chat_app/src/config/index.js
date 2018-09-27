@@ -1,7 +1,7 @@
 // const port = '8000'
 // export { port }
-export const wsport = production ? `wss://ohshutit.app/ws` : `ws://169.254.231.169:8000/ws`
-export const server = production ? 'https://ohshutit.app' : 'http://169.254.231.169:8000'
+export const wsport = production ? `wss://ohshutit.app/ws` : `ws://192.168.1.30:8000/ws`
+export const server = production ? 'https://ohshutit.app' : 'http://192.168.1.30:8000'
 export const prefix = 'chat_app'
 
 export const production = false
