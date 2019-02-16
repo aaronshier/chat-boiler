@@ -1,6 +1,13 @@
 # RN Chat Web/Mobile App Boiler Plate
 
 ## Instructions
+1. clone `repo-url` `project-name`
+2. cd `project-name`
+3. npm i
+4. npm run dev
+5. Running on port 8080
+
+You will need to have nodejs and mongodb installed and running.
 
 ## Performance
 With the current settings, page speed is 98/94 in lighthouse.
