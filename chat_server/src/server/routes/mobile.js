@@ -7,7 +7,8 @@ import passport from 'passport'
 require('../../config/passport')(passport)
 passport.authenticate('jwt', { session: false})
 var jwt = require('jsonwebtoken')
-const { secret, status_codes } = require('../../config')
+const { status_codes } = require('../../config')
+import { secret } from '../../config/server-config'
 const User = require('../models/user')
 const router = express.Router()
 

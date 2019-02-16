@@ -1,7 +1,7 @@
 # RN Chat Web/Mobile App Boiler Plate
 
 ## Instructions
-Shove it in real slow like.  I believe in you
+
 
 <!-- <p align="center">
   <img src="./assets/banner.png">

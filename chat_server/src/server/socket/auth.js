@@ -1,4 +1,5 @@
-import { server, secret, status_codes, facebookAuth, socket } from '../../config'
+import { server, status_codes, facebookAuth, socket } from '../../config'
+import { secret } from '../../config/server-config'
 import User from '../models/user'
 
 var jwt = require('jsonwebtoken')

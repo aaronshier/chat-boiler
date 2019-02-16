@@ -9,7 +9,7 @@ import passport from 'passport'
 import cookieSession from 'cookie-session'
 import helmet from 'helmet'
 import favicon from 'serve-favicon'
-
+import compression from 'compression'
 // Import Routes
 import ssr from './routes/ssr.js'
 import tests from './routes/tests.js'
@@ -24,10 +24,10 @@ const app = express()
 const expressWs = require('express-ws')(app);
 
 // Set port
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 8080
 
 // Configure DB
-import { database } from '../config'
+import { database } from '../config/server-config'
 
 mongoose.connect(database.url)
 
@@ -42,6 +42,9 @@ app.use(helmet())
 
 // Dev Logging Tool
 app.use(logger('dev'))
+
+
+app.use(compression())
 
 // Favicon
 app.use(favicon('public/favicon.png'))

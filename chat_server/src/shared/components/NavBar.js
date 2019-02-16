@@ -58,7 +58,7 @@ class NavBar extends Component {
     const navigation = redux.user.login ? navBarLoggedIn : navBarLoggedOut
     return (
       <div className="navbar">
-        <i style={{
+        {/* <i style={{
           position: 'absolute',
           left: '40px',
           background: '#fff',
@@ -70,7 +70,25 @@ class NavBar extends Component {
           alignItems: 'center',
           justifyContent: 'center',
           borderRadius: '100%',
-        }}className="fas fa-comments"></i>
+        }}className="fas fa-comments"></i> */}
+        <div>
+          <div style={{
+            position: 'absolute',
+            left: '40px',
+            top: '13px',
+            background: '#fff',
+            color: '#0af',
+            width: '45px',
+            height: '45px',
+            fontSize: '24px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '100%',
+          }}>
+            <img src="/images/chat-icon.png" alt="chat icon" id="nav-icon" style={{width: 20, height: 'auto'}}/>
+          </div>
+        </div>
         <ul style={{position: 'absolute', bottom: 0, right: 0}}>
           {navigation.map(({ name, url }, key) => (
             <NavLink key={key} activeStyle={{fontWeight: 'bold'}} to={url}>
