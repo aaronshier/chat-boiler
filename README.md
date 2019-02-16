@@ -4,8 +4,9 @@
 1. clone https://github.com/aaronshier/chat-boiler.git `project-name`
 2. cd `project-name`
 3. npm i
-4. npm run dev
-5. Running on port 8080
+4. setup facebook api keys for login auth (http://developer.facebook.com)
+5. npm run dev
+6. Running on port 8080
 
 You will need to have nodejs and mongodb installed and running.
 
