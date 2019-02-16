@@ -1,7 +1,7 @@
 # RN Chat Web/Mobile App Boiler Plate
 
 ## Instructions
-1. clone `repo-url` `project-name`
+1. clone https://github.com/aaronshier/chat-boiler.git `project-name`
 2. cd `project-name`
 3. npm i
 4. npm run dev
