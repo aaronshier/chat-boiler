@@ -3,7 +3,7 @@
 ## Instructions
 
 ## Performance
-With the current settings, page speed is 98 in lighthouse.
+With the current settings, page speed is 98/94 in lighthouse.
 
 <!-- <p align="center">
   <img src="./assets/banner.png">
